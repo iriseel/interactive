@@ -1,0 +1,144 @@
+
+@font-face {
+    font-family: "picnic";
+    src: url('../fonts/PicNic-Regular');
+    }
+
+body {
+    font-family: "picnic";
+    background-color:rgba(25,6,27,1);
+    box-sizing:border-box;
+}
+
+h1 {
+    text-shadow:
+       -.4px -.4px 0 rgba(153,114,149,1),  
+        .4px -.4px 0 rgba(153,114,149,1),
+        -.4px .4px 0 rgba(153,114,149,1),
+         .4px .4px 0 rgba(153,114,149,1);
+}
+
+h2, h3, h4, h5, h6, p, div {
+    color:rgba(153,114,149,.5);
+}
+
+a {
+    text-decoration:none;
+    background: -webkit-linear-gradient(#A34A3F,#86728B,#98BB61);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a:visited {
+    
+}
+
+a:hover {
+    color:rgba(153,114,149,.4);
+    transition:1s;
+    font-size:1.1em;
+}
+
+.mp {
+    position:absolute;
+    z-index:-1;
+    top: 20%;
+    left:0;
+    right:0;
+    margin:auto;
+    background-image: url("images/mimosapudica_1.gif");
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+
+    width: 60vmin;
+    height: 60vmin;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 50vmin rgba(178,141,168,.6),
+        0 0 8px 8px rgba(178,141,168,.6) inset;
+    animation:change 3s linear alternate infinite;
+
+}
+
+/*
+using 
+    top: 50%;
+    transform: translate(-0%,-50%);
+fucks everythign up??
+*/
+.aura_container {
+    position:absolute;
+    z-index:0;
+    top: 20%;
+    left:0;
+    right:0;
+    margin:0 auto;
+    width:60vmin;
+    animation:change 3s linear alternate infinite;
+}
+
+@keyframes change {
+  to {
+    width:40vmin;
+      height:40vmin;
+  }
+}
+
+.aura {
+  border-radius:50%;
+  background:linear-gradient(#98BB61,#86728B,#A34A3F);
+  -webkit-mask: radial-gradient(circle at center, transparent 18vmin,#000 20vmin);
+   /* mask: radial-gradient(transparent 89px,#000 90px);*/
+    box-shadow:
+        0 0 8px 8px rgba(178,141,168,.6) inset;
+
+}
+
+.aura:before {
+  content:"";
+  display:block;
+  padding-top:100%;
+}
+
+.star {
+    position:absolute;
+    z-index:1;
+    min-width:30%;
+}
+
+.tooltip {
+    position:relative;
+    display:inline-block;
+    width:1em;
+    height:1em;
+    text-align: center;
+    padding:.3em;
+    border-radius:50%;
+    border: 1px dotted #A34A3F;
+    color:#98BB61;
+}
+
+.tooltip:hover {
+}
+
+.tooltip .tooltiptext {
+    visibility:hidden;
+    opacity:0;
+    min-width:10em;
+    font-size:.75em;
+    
+    text-align: right;
+    position:absolute;
+    z-index:1;
+    top:100%;
+    right:0%;
+    transition:1s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity:1;
+    
+}
+        
