@@ -1,0 +1,61 @@
+body {
+    background-image:linear-gradient(blue,pink,orange);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin:0;
+    padding:0;
+}
+
+.angel {
+    position:fixed;
+    right:10px;
+}
+
+.cloud {
+    width:60%;
+    height:auto;
+    position:fixed;
+}
+
+.cloud:nth-of-type(2) {
+    top:20%;
+    left:20%;
+}
+
+.cloud:nth-of-type(3) {
+    top:60%;
+    right:0%;
+}
+
+.cloud:nth-of-type(4) {
+    top:30%;
+    left:0;
+    right:0;
+    margin:auto;
+}
+
+
+.cloud:nth-of-type(5) {
+    position:relative;
+    top:0%;
+    left:0%;
+}
+
+.cloud:nth-of-type(6) {
+    position:relative;
+    top:70%;
+    left:60%;
+}
+
+.cloud:nth-of-type(7) {
+    position:relative;
+    top:100%;
+    left:26%;
+    margin:auto;
+}
+
+.cloud:nth-of-type(8) {
+    position:relative;
+    top:120%;
+    right:0;
+}
