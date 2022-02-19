@@ -20,24 +20,49 @@ body {
   font-family: "Youth";
     color:white;
     background-color:white;
+    cursor:none;
 }
 
+/*bring back cursor when selecting or clicking anywhere*/
+*:active {
+    cursor:zoom-in;
+}
 
-.info_btn {
+/*How to get question mark in info_btn to center with nav?*/
+.info_btn, nav {
     position:fixed;
-    top:1.25em;
     left:.5em;
     z-index:4;
     color:rgb(55, 55, 255);
     text-align:center;
 }
 
+.info_btn {
+    top:1.25em;
+}
+
 .info_btn:hover {
     cursor:pointer;
 }
 
-.navgroup {
-    margin-top:1em;
+/*??? The flex on this nav is not working. And height is moving nav above the info_btn when screen height adjusts, which is NOT good*/
+nav {
+    top:3em;
+    height:80vh;
+    
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+nav a:link {
+    color:blue;
+    text-decoration:none;
+}
+
+nav a:visited {
+    color:blue;
+    text-decoration:none;
 }
 
 .info {
@@ -48,20 +73,24 @@ body {
     
     padding:1em;
     width:50vw;
-    max-width: 400px;
+    min-width: 360px;
     height:auto;
-    font-size:.8em;
     border:.1px solid blue;
-    background:rgba(255,255,255,.8);
+    background:rgba(255,255,255,1);
     
     visibility:hidden;
     opacity:0;
     transition:1s;
     
     display:flex;
+    flex-flow: column wrap;
     justify-content: center;
     align-content: center;
     align-items: center;
+}
+
+.info p {
+    font-size:.7em;
 }
 
 .info_btn:hover .info {
@@ -69,7 +98,7 @@ body {
     opacity:1;
 }
 
-.textbox {
+.interview {
     padding:1em;
     z-index:3;
     margin-left:1em;
@@ -79,12 +108,22 @@ body {
     /*background:rgba(255,27,0,.8);*/
 }
 
-/*
-.text {
-    height:calc(100% - 1em);
-    overflow-y:scroll;
+p {
+    margin: .5em 0em;
 }
-*/
+
+.interview p { 
+    /*mix-blend-mode: color-dodge;*/
+    color: white;
+    line-height: 4;
+    
+    /*animation: pshimmer 4s ease infinite alternate;*/
+}
+
+/*selects all p that have any id (in this case that means any new question), except the very first one*/
+p[id]:not(:first-of-type) {
+   margin-top:100vh; 
+}
 
 span.siri {
     padding:.5em;
@@ -103,7 +142,8 @@ span.karen {
     */
 }
 
-/*??? Jittery text-shadow??*/
+/*??? Jittery text-shadow??
+??? ALSO doesn't work on links???'*/
 .siri::selection, .karen::selection {
     background:transparent;
   text-shadow: 0em 2em 0 blue, 1px 1px 10px blue;
@@ -118,14 +158,21 @@ span.karen {
     height:4em;
 }
 
-p { 
-    /*mix-blend-mode: color-dodge;*/
-    transition:2s;
-    color: white;
-    line-height: 4;
-    
-    /*animation: pshimmer 4s ease infinite alternate;*/
+/*??? Something very bizzare is happening with the link styling ... visited doesn't seem to change/record anything unless all the links are default styling
+a:link {
+    color:rgba(255,255,255,0);
+    text-decoration: none;
 }
+
+a:visited, a:active {
+    color:rgba(255,255,255,1);
+    text-decoration: none;
+}
+
+a:hover {
+    
+}
+*/
 
 .highlight {
   color: transparent;
@@ -139,6 +186,17 @@ p {
     background:transparent;
   text-shadow: 0em 2em 0 blue;
 }
+
+
+.right {
+    text-align:right;
+}
+
+
+.center {
+    text-align: center;
+}
+
 
 
 
@@ -307,6 +365,7 @@ div [class^="box"]:hover p {
 /*THINGS THAT DIDN'T WORK OUT*/
 
 
+/*???? HOW TO GET the center pointer to start expanding when the mouse stops moving???*/
 .pointer {
     position:absolute;
     border-radius:50%;
@@ -383,12 +442,6 @@ div [class^="box"]:hover p {
     width: 110px;
     height:110px;
     background:rgba(255,84,20,.2); transition: left 1s linear, top 1s linear;
-}
-
-
-@keyframes heat {
-    from {opacity: .5; /*transform:translate(-50%,-50%) scale(.5);*/}
-    to {opacity: 1; /*transform:translate(-50%,-50%) scale(1);*/}
 }
 
 
