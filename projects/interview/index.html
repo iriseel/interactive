@@ -70,7 +70,8 @@
           <a href="#question-2" title="how you would answer that question">&#9638;</a>
        </nav>
       
-      <!--
+      
+    <!--
     <div class="grid small">
         <div class="grid_item"></div>
         <div class="grid_item"></div>
@@ -474,7 +475,7 @@
         <div class="grid_item"></div>
         
       </div>
-      -->
+   -->
       
       
   <div class="interview">
@@ -729,7 +730,49 @@
             /*??? Something's wrong here.I'm trying to get the subsidiary pointers to fade out
             $('.pointer2').css({transition: opacity 10s linear;opacity:0});
             */
-        })
+        });
+          
+          $(document).mousedown(function() {
+              $('.pointer1').animate({
+                   width: "400px",
+                   height: "400px",    
+                    }, 1500 );
+          });
+          
+          $(document).mouseup(function() {
+              $('.pointer1').animate({
+                   width: "200px",
+                   height: "200px",    
+                    }, 1500 );
+          });
+          
+          $(document).mousedown(function() {
+              $('.pointer2').animate({
+                   width: "380px",
+                   height: "380px",    
+                    }, 1500 );
+          });
+          
+          $(document).mouseup(function() {
+              $('.pointer2').animate({
+                   width: "190px",
+                   height: "190px",    
+                    }, 1500 );
+          });
+          $(document).mousedown(function() {
+              $('.pointer3').animate({
+                   width: "340px",
+                   height: "340px",    
+                    }, 1500 );
+          });
+          
+          $(document).mouseup(function() {
+              $('.pointer3').animate({
+                   width: "170px",
+                   height: "170px",    
+                    }, 1500 );
+          });
+          
       </script>
 
   </body>
