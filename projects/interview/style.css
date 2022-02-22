@@ -28,8 +28,7 @@ body {
     cursor:zoom-in;
 }
 
-/*How to get question mark in info_btn to center with nav?*/
-.info_btn, nav {
+nav {
     position:fixed;
     left:.5em;
     z-index:4;
@@ -37,19 +36,14 @@ body {
     text-align:center;
 }
 
-.info_btn {
-    top:1.25em;
-}
-
 .info_btn:hover {
     cursor:pointer;
 }
 
-/*??? The flex on this nav is not working. And height is moving nav above the info_btn when screen height adjusts, which is NOT good*/
 nav {
-    top:3em;
-    height:80vh;
-    
+    top:1em;
+    height:calc(100vh - 2em);
+
     display:flex;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -61,7 +55,7 @@ nav a:link {
 }
 
 nav a:visited {
-    color:blue;
+    color:#FFAD00;
     text-decoration:none;
 }
 
@@ -70,18 +64,18 @@ nav a:visited {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+
     padding:1em;
     width:50vw;
     min-width: 360px;
     height:auto;
     border:.1px solid blue;
     background:rgba(255,255,255,1);
-    
+
     visibility:hidden;
     opacity:0;
     transition:1s;
-    
+
     display:flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -100,93 +94,91 @@ nav a:visited {
 
 .interview {
     padding:1em;
+    padding-top:0;
     z-index:3;
     margin-left:1em;
-}
-
-.textbox:hover {
-    /*background:rgba(255,27,0,.8);*/
 }
 
 p {
     margin: .5em 0em;
 }
 
-.interview p { 
+.interview p {
     /*mix-blend-mode: color-dodge;*/
     color: white;
     line-height: 4;
-    
-    /*animation: pshimmer 4s ease infinite alternate;*/
 }
 
 /*selects all p that have any id (in this case that means any new question), except the very first one*/
 p[id]:not(:first-of-type) {
-   margin-top:100vh; 
+   margin-top:100vh;
 }
 
-span.siri {
-    padding:.5em;
-    border:.1px solid #FFAD00;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+p[id]:first-of-type {
+   margin-top:0;
 }
 
-span.karen {
+span.siri, span.karen {
     padding:.5em;
-    border:.1px solid blue;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
-    /*??? Is there a way to only apply this to the border??
+    /*Q: Is there a way to only apply this to the border??
+    A: Not really. Maybe make another layer of this same text but make text transparent and apply blend mode to that element only
     mix-blend-mode:color-dodge;
     */
 }
 
-/*??? Jittery text-shadow??
-??? ALSO doesn't work on links???'*/
-.siri::selection, .karen::selection {
-    background:transparent;
-  text-shadow: 0em 2em 0 blue, 1px 1px 10px blue;
-    
+span.siri {
+    border:.1px solid #FFAD00;
 }
 
-/*???? NOT WORKING*/
+span.karen {
+    border:.1px solid blue;
+}
+
+/*??? Jittery text-shadow??
+Try isolating this in another file and see if you can get it to work pared down*/
+.siri::selection, .karen::selection,
+.siri a::selection, .karen a::selection,.highlight::selection {
+    background:transparent;
+  text-shadow: 0em 2em 0 blue;
+
+}
+
+
+/*???? NOT WORKING
 .remainder {
     background: black;
     width:100%;
     border:1px solid red;
     height:4em;
 }
+*/
 
-/*??? Something very bizzare is happening with the link styling ... visited doesn't seem to change/record anything unless all the links are default styling
-a:link {
-    color:rgba(255,255,255,0);
+/*??? Something very bizzare is happening with the link styling ... visited doesn't seem to change/record anything unless all the links are default styling*/
+a {
+    color:rgb(255,84,20);
     text-decoration: none;
+    mix-blend-mode: color;
 }
 
 a:visited, a:active {
-    color:rgba(255,255,255,1);
+    color:rgb(0,0,255);
     text-decoration: none;
 }
 
 a:hover {
-    
+
 }
-*/
+
 
 .highlight {
   color: transparent;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: .8px;
   -webkit-text-stroke-color: blue;
-    
-}
 
-.highlight::selection {
-    background:transparent;
-  text-shadow: 0em 2em 0 blue;
 }
-
 
 .right {
     text-align:right;
@@ -201,12 +193,11 @@ a:hover {
 
 
 
+
 /*
-Q: Cursor only reacts to 1 grid (whichever's z-index is highest)???? I want multiple grids
+code from https://medium.com/@dailyfire/cursor-trails-3-simple-css-tricks-to-add-to-any-website-part-1-64750798583c
 */
-
-
-/*code from https://medium.com/@dailyfire/cursor-trails-3-simple-css-tricks-to-add-to-any-website-part-1-64750798583c*/
+/*
 .grid {
     position:fixed;
     display:flex;
@@ -222,17 +213,17 @@ Q: Cursor only reacts to 1 grid (whichever's z-index is highest)???? I want mult
 .grid.small .grid_item {
     width:5vw;
     /*height is based off width to keep the heatspots circular*/
-    height:5vw;
+    /*height:5vw;
     background:rgba(255,84,20,.3);
     border: 3px solid rgba(255,173,20,.3);
     border-radius:50%;
     opacity:0;
     filter:blur(10px);
-    
+
     /*here we are telling the the .grid_item to transition the opacity over a duration of 2 seconds, with a 0.4 second delay. We also transition the changes to transform over 0.8 seconds, with no delay.*/
-    transition: opacity 2s ease 0.4s, background 1s ease, transform 1s ease;
+    /*transition: opacity 2s ease 0.4s, background 1s ease, transform 1s ease;
     transform: scale(3);
-    
+
 }
 
 .grid.small .grid_item:hover {
@@ -241,7 +232,7 @@ Q: Cursor only reacts to 1 grid (whichever's z-index is highest)???? I want mult
     border: 10px solid rgba(255,173,20,.8);
     transition: opacity 0.2s ease, transform 3s ease, background 8s ease, border 8s ease;
     transform:scale(6);
-    
+
 }
 
 /*
@@ -259,7 +250,7 @@ Q: Cursor only reacts to 1 grid (whichever's z-index is highest)???? I want mult
       transparent 75px,
         transparent 600px
     );
-    
+
     filter:blur(10px);
     pointer-events: none;
     }
@@ -279,9 +270,9 @@ Q: Cursor only reacts to 1 grid (whichever's z-index is highest)???? I want mult
       transparent 75px,
         transparent 600px
     );
-    
+
     filter:blur(10px);
-    
+
     pointer-events: none;
     }
 
@@ -297,7 +288,7 @@ Q: Cursor only reacts to 1 grid (whichever's z-index is highest)???? I want mult
     flex-flow: row wrap;
     justify-content:space-around;
     align-items: center;
-    
+
    padding-top:2%;
 }
 
@@ -305,24 +296,24 @@ Q: So, I want the text and textbox to appear above the cursor, hence z-index:4. 
 div [class^="box"] {
     box-shadow: inset 0px 0px 10px 10px darkblue;
     padding:2em 2em;
-    
+
     display:flex;
     flex-flow: row wrap;
     justify-content:center;
     align-content:center;
     align-items:center;
-    
+
     z-index:3;
     mix-blend-mode: color-dodge;
     mix-blend-mode: screen;
-    
+
 }
 
 .box-small {
     width: 200px;
     height:200px;
     border-radius:30px;
-    
+
     animation: shimmer 4s ease infinite alternate;
 }
 
@@ -330,16 +321,16 @@ div [class^="box"] {
     width: 400px;
     height:400px;
     border-radius:60px;
-    
+
     animation: shimmer 8s ease infinite alternate;
-    
+
 }
 
 .box-large {
     width: 600px;
     height:600px;
     border-radius:90px;
-    
+
     animation: shimmer 12s ease infinite alternate;
 }
 
@@ -373,11 +364,11 @@ div [class^="box"]:hover p {
     left:50%;
     transform:translate(-50%,-50%);
     opacity:.5;
-    
+
     filter:blur(20px);
     /*???Why can't this be 1 or 0? Why must it be negative for it to be behind the text when the .interview z-index is 3??*/
     z-index:-1;
-    
+
     transition: opacity 10s linear;
 }
 
@@ -386,7 +377,7 @@ div [class^="box"]:hover p {
     width: 200px;
     height:200px;
     background:rgba(255,84,20,1);
-    transition: left .1s linear, top .1s linear; 
+    transition: left .1s linear, top .1s linear;
     border:20px solid orange;
 }
 
@@ -443,5 +434,3 @@ div [class^="box"]:hover p {
     height:110px;
     background:rgba(255,84,20,.2); transition: left 1s linear, top 1s linear;
 }
-
-
