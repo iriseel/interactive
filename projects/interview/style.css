@@ -19,7 +19,7 @@ html {
 body {
   font-family: "Youth";
     color:white;
-    background-color:lightyellow;
+    background-color:white;
     cursor:none;
 }
 
@@ -163,15 +163,12 @@ a {
 
 a:visited, a:active {
     color:rgb(0,0,255);
-    text-decoration: none;    -webkit-appearance: none;
-    background:#000;
+    text-decoration: none;
 }
 
 
 .highlight {
-  color: transparent;    
-    -webkit-appearance: none;
-    background:#000;
+  color: transparent;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: .8px;
   -webkit-text-stroke-color: blue;
@@ -336,15 +333,11 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
         animation: none;
     }
     
-    /*doesn't work on actual phone*/
-p:active, p:focus {
-    -webkit-appearance: none;
-    background:#000;
-    background:transparent;
-  text-shadow: 0em 2em 0 blue;
-
+    /*doesn't work on actual phone
+    p:active, p:focus {
+        background:transparent;
+        text-shadow: 0em 2em 0 blue;
+*/
 }
     }
     
-    
-}
