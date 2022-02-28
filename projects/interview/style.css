@@ -339,7 +339,7 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
     }
     
     /*doesn't work on actual phone*/
-    p:active {
+    p:active, p:focus {
         background:transparent;
   text-shadow: 0em 2em 0 blue;
 
