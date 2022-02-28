@@ -31,16 +31,16 @@ body {
 nav {
     position:fixed;
     left:16px;
-    top:32px;
+    top:0px;
     z-index:4;
     
     color:rgb(55, 55, 255);
     text-align:center;
-    height:calc(100vh - 40px);
+    height:calc(100vh - 32px);
 
     display:flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .info_btn:hover {
@@ -161,6 +161,7 @@ a {
     mix-blend-mode: color;
 }
 
+/*this doesn't work in safari*/
 a:visited, a:active {
     color:rgb(0,0,255);
     text-decoration: none;
@@ -315,6 +316,7 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
 @media screen and (hover:none) {
     * {
     font-size:22px;
+        
     }
     
     nav a, nav .info_btn {
@@ -333,11 +335,19 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
         animation: none;
     }
     
-    /*doesn't work on actual phone
+    p {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
+    }
+    
+    /*Change text-shadow reveal from highlight to clicking, since :selection doesn't work on ios*/
     p:active, p:focus {
         background:transparent;
         text-shadow: 0em 2em 0 blue;
-*/
-}
     }
+}
     
