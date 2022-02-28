@@ -348,6 +348,7 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
     p:active, p:focus {
         background:transparent;
         text-shadow: 0em 2em 0 blue;
+        transition:1s;
     }
 }
     
