@@ -739,28 +739,28 @@
             */
         });
 
-        var timeout = null;
+          
+          
+          
+          var mousemoving = null;
 
-        $(document).on('mousemove', function() {
-            if (timeout !== null) {
-                clearTimeout(timeout);
-                $('.pointer1').animate({
-                     width: "200px",
-                     height: "200px",
-                      }, 1500 );
-                console.log('mouse moving');
-            }
+            $(document).on('mousemove', function() {
+                /*on mousemove, mousemoving loop is cancelled*/
+                clearInterval(mousemoving);
+                console.log('mouse moved');
+                
+                /*don't use the jquery .animate here!! It won't work!!! Use css animations instead!!!!*/
+             $('.pointer1').removeClass("grow").addClass("shrink");
 
-            timeout = setTimeout(function() {
-              $('.pointer1').animate({
-                   width: "400px",
-                   height: "400px",
-                    }, 1500 );
-                    console.log('mouse idle for 3 sec');
-            }, 3000);
-        });
-
-
+                /*setInterval sets loop wherein console logs idle every 1 sec*/
+                mousemoving = setInterval(function() {
+                    console.log('Mouse idle for 1 sec');
+                    $('.pointer1').removeClass("shrink").addClass("grow");
+                    
+                }, 1000);
+            });
+          
+     
 /*
           $(document).mousedown(function() {
               $('.pointer1').animate({

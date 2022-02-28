@@ -30,23 +30,21 @@ body {
 
 nav {
     position:fixed;
-    left:.5em;
+    left:16px;
+    top:32px;
     z-index:4;
+    
     color:rgb(55, 55, 255);
     text-align:center;
-}
-
-.info_btn:hover {
-    cursor:pointer;
-}
-
-nav {
-    top:1em;
-    height:calc(100vh - 2em);
+    height:calc(100vh - 40px);
 
     display:flex;
     flex-flow: column nowrap;
     justify-content: space-between;
+}
+
+.info_btn:hover {
+    cursor:pointer;
 }
 
 nav a:link {
@@ -65,7 +63,7 @@ nav a:visited {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    padding:1em;
+    padding:32px;
     width:50vw;
     min-width: 360px;
     height:auto;
@@ -81,6 +79,7 @@ nav a:visited {
     justify-content: center;
     align-content: center;
     align-items: center;
+    z-index:5;
 }
 
 .info p {
@@ -93,10 +92,10 @@ nav a:visited {
 }
 
 .interview {
-    padding:1em;
-    padding-top:0;
+    padding:32px;
+    padding-top:16px;
     z-index:3;
-    margin-left:1em;
+    margin-left:32px;
 }
 
 p {
@@ -198,167 +197,6 @@ a:hover {
 
 
 
-/*
-code from https://medium.com/@dailyfire/cursor-trails-3-simple-css-tricks-to-add-to-any-website-part-1-64750798583c
-*/
-/*
-.grid {
-    position:fixed;
-    display:flex;
-    flex-wrap: wrap;
-    width:100vw;
-    height:100vh;
-}
-
-.grid.small {
-    z-index:1;
-}
-
-.grid.small .grid_item {
-    width:5vw;
-    /*height is based off width to keep the heatspots circular*/
-    /*height:5vw;
-    background:rgba(255,84,20,.3);
-    border: 3px solid rgba(255,173,20,.3);
-    border-radius:50%;
-    opacity:0;
-    filter:blur(10px);
-
-    /*here we are telling the the .grid_item to transition the opacity over a duration of 2 seconds, with a 0.4 second delay. We also transition the changes to transform over 0.8 seconds, with no delay.*/
-    /*transition: opacity 2s ease 0.4s, background 1s ease, transform 1s ease;
-    transform: scale(3);
-
-}
-
-.grid.small .grid_item:hover {
-    opacity:1;
-    background:rgba(255,27,0,.8);
-    border: 10px solid rgba(255,173,20,.8);
-    transition: opacity 0.2s ease, transform 3s ease, background 8s ease, border 8s ease;
-    transform:scale(6);
-
-}
-
-/*
-.stripes {
-    position:absolute;
-    z-index:2;
-    top:0;
-    mix-blend-mode: normal;
-    width:8000px;
-    height:8000px;
-    background: repeating-linear-gradient(
-      to right,
-      rgba(243,249,255,.2),
-      rgba(243,249,255,.2) 75px,
-      transparent 75px,
-        transparent 600px
-    );
-
-    filter:blur(10px);
-    pointer-events: none;
-    }
-
-
-.stripes2 {
-    position:absolute;
-    z-index:2;
-    top:0;
-    mix-blend-mode: normal;
-    width:8000px;
-    height:8000px;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(243,249,255,.2),
-      rgba(243,249,255,.2) 75px,
-      transparent 75px,
-        transparent 600px
-    );
-
-    filter:blur(10px);
-
-    pointer-events: none;
-    }
-
-*/
-
-
-
-/*
-
-
-.container {
-    display:flex;
-    flex-flow: row wrap;
-    justify-content:space-around;
-    align-items: center;
-
-   padding-top:2%;
-}
-
-Q: So, I want the text and textbox to appear above the cursor, hence z-index:4. However, that means the cursor doesn't activate while above any textbox. How to solve this????'
-div [class^="box"] {
-    box-shadow: inset 0px 0px 10px 10px darkblue;
-    padding:2em 2em;
-
-    display:flex;
-    flex-flow: row wrap;
-    justify-content:center;
-    align-content:center;
-    align-items:center;
-
-    z-index:3;
-    mix-blend-mode: color-dodge;
-    mix-blend-mode: screen;
-
-}
-
-.box-small {
-    width: 200px;
-    height:200px;
-    border-radius:30px;
-
-    animation: shimmer 4s ease infinite alternate;
-}
-
-.box-medium {
-    width: 400px;
-    height:400px;
-    border-radius:60px;
-
-    animation: shimmer 8s ease infinite alternate;
-
-}
-
-.box-large {
-    width: 600px;
-    height:600px;
-    border-radius:90px;
-
-    animation: shimmer 12s ease infinite alternate;
-}
-
-
-div [class^="box"] p {
-    visibility:hidden;
-    opacity:0;
-}
-
-
-div [class^="box"]:hover p {
-    visibility:visible;
-    opacity:1;
-}
-
-
-@keyframes shimmer {
-    from {background: rgba(224,249,255,0);}
-    to {background: rgba(224,249,255,.1);}
-}
-*/
-/*THINGS THAT DIDN'T WORK OUT*/
-
-
 /*???? HOW TO GET the center pointer to start expanding when the mouse stops moving???*/
 .pointer {
     position:absolute;
@@ -368,12 +206,15 @@ div [class^="box"]:hover p {
     left:50%;
     transform:translate(-50%,-50%);
     opacity:.5;
-
     filter:blur(20px);
     /*???Why can't this be 1 or 0? Why must it be negative for it to be behind the text when the .interview z-index is 3??*/
     z-index:-1;
 
     transition: opacity 10s linear;
+    
+    /*must have this fill-mode or else pointer will abruptly revert to small size after expanding, instead of freezing there until you move cursor again*/
+    animation-fill-mode: forwards;
+    
 }
 
 
@@ -437,4 +278,72 @@ div [class^="box"]:hover p {
     width: 110px;
     height:110px;
     background:rgba(255,84,20,.2); transition: left 1s linear, top 1s linear;
+}
+.grow {
+    
+    animation: grow 10s;
+}
+.shrink {
+        
+    animation: shrink 1s;
+}
+/*???
+By setting the starting size in this animation, I'm making it so that if the pointer is not finished diminishing in size from a previous pause (grow) before being paused again (starting another grow animation), it forces the pointer to shrink immediately back to 200px x 200px, instead of fading back into the size, hence a jumpy effect
+But my current attempt to use jquery addClass and removeClass instead also doesn't solve the issue :(((((((((
+*/
+@keyframes grow {
+    from {
+        width:200px;
+        height:200px;
+    }
+    to {
+        width: 300px;
+        height:300px;
+    }
+}
+
+
+@keyframes shrink {
+    from {
+      width: 300px;
+      height: 300px;
+    }
+    to {
+      width: 200px;
+      height: 200px;
+    }
+}
+
+
+
+/*MEDIA QUERIES*/
+@media screen and (hover:none) {
+    * {
+    font-size:16px;
+    }
+    
+    nav a, nav .info_btn {
+        font-size:32px;
+    }
+    
+    a {
+        color:rgb(0,0,255);
+    }
+    
+    .grow {
+        animation:none;
+    }
+    
+    .shrink {
+        animation: none;
+    }
+    
+    p:active {
+        background:transparent;
+  text-shadow: 0em 2em 0 blue;
+
+}
+    }
+    
+    
 }
