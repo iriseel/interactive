@@ -319,7 +319,7 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
 /*MEDIA QUERIES*/
 @media screen and (hover:none) {
     * {
-    font-size:16px;
+    font-size:22px;
     }
     
     nav a, nav .info_btn {
@@ -338,6 +338,7 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
         animation: none;
     }
     
+    /*doesn't work on actual phone*/
     p:active {
         background:transparent;
   text-shadow: 0em 2em 0 blue;
