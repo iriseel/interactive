@@ -340,6 +340,8 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
     
     /*doesn't work on actual phone*/
     p:active, p:focus {
+        -webkit-appearance: none;
+background:#000;
         background:transparent;
   text-shadow: 0em 2em 0 blue;
 
