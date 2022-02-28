@@ -163,16 +163,15 @@ a {
 
 a:visited, a:active {
     color:rgb(0,0,255);
-    text-decoration: none;
-}
-
-a:hover {
-
+    text-decoration: none;    -webkit-appearance: none;
+    background:#000;
 }
 
 
 .highlight {
-  color: transparent;
+  color: transparent;    
+    -webkit-appearance: none;
+    background:#000;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: .8px;
   -webkit-text-stroke-color: blue;
@@ -197,7 +196,6 @@ a:hover {
 
 
 
-/*???? HOW TO GET the center pointer to start expanding when the mouse stops moving???*/
 .pointer {
     position:absolute;
     border-radius:50%;
@@ -339,10 +337,10 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
     }
     
     /*doesn't work on actual phone*/
-    p:active, p:focus {
-        -webkit-appearance: none;
-background:#000;
-        background:transparent;
+p:active, p:focus {
+    -webkit-appearance: none;
+    background:#000;
+    background:transparent;
   text-shadow: 0em 2em 0 blue;
 
 }
