@@ -135,8 +135,8 @@ span.karen {
     border:.1px solid blue;
 }
 
-/*??? Jittery text-shadow??
-Try isolating this in another file and see if you can get it to work pared down*/
+/*??? Jittery text-shadow.
+Basically unsolvable*/
 .siri::selection, .karen::selection,
 .siri a::selection, .karen a::selection,.highlight::selection {
     background:transparent;
@@ -154,14 +154,14 @@ Try isolating this in another file and see if you can get it to work pared down*
 }
 */
 
-/*??? Something very bizzare is happening with the link styling ... visited doesn't seem to change/record anything unless all the links are default styling*/
 a {
     color:rgb(255,84,20);
     text-decoration: none;
     mix-blend-mode: color;
 }
 
-/*this doesn't work in safari*/
+/*???
+this doesn't work in safari*/
 a:visited, a:active {
     color:rgb(0,0,255);
     text-decoration: none;
@@ -319,6 +319,11 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
         
     }
     
+    nav {
+        top:16px;
+        height:calc(100vh - 16px);
+    }
+    
     nav a, nav .info_btn {
         font-size:32px;
     }
@@ -335,7 +340,8 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
         animation: none;
     }
     
-    p {
+    /*disable selection on ios*/
+    p, div[class^="pointer"] {
         -webkit-touch-callout: none; /* iOS Safari */
         -webkit-user-select: none; /* Safari */
          -khtml-user-select: none; /* Konqueror HTML */
