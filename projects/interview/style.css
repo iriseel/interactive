@@ -320,14 +320,6 @@ a:visited, a:active {
         mix-blend-mode: normal;
     }
     
-    .grow {
-        animation:none;
-    }
-    
-    .shrink {
-        animation: none;
-    }
-    
     /*disable selection on ios*/
     p, div[class^="pointer"] {
         -webkit-touch-callout: none; /* iOS Safari */
