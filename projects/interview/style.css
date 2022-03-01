@@ -64,8 +64,8 @@ nav a:visited {
     transform: translate(-50%, -50%);
 
     padding:32px;
-    width:50vw;
-    min-width: 360px;
+    width:calc(100vw - 128px - 32px);
+    max-width: 560px;
     height:auto;
     border:.1px solid blue;
     background:rgba(255,255,255,1);
@@ -314,22 +314,10 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
 
 /*MEDIA QUERIES*/
 @media screen and (hover:none) {
-    * {
-    font-size:22px;
-        
-    }
-    
-    nav {
-        top:16px;
-        height:calc(100vh - 16px);
-    }
-    
-    nav a, nav .info_btn {
-        font-size:32px;
-    }
     
     a {
-        color:rgb(0,0,255);
+        color:rgba(0,0,255,0.01);
+        mix-blend-mode: normal;
     }
     
     .grow {
@@ -357,4 +345,32 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
         transition:1s;
     }
 }
+
+@media screen and (max-width:461px) {
+    * {
+    font-size:22px;
+        
+    }
+    
+    nav {
+        top:16px;
+        height:calc(100vh - 16px);
+    }
+    
+    nav a, nav .info_btn {
+        font-size:32px;
+    }
+    
+    .info {
+        min-width: calc(100vw - 64px - 32px);
+        left: calc(32px + 32px);
+        transform: translate(0px, -50%);
+    }
+    
+    .info p {
+        font-size:1em;
+    }
+
+    
+ }
     
