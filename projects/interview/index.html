@@ -750,13 +750,17 @@
                 clearInterval(mousemoving);
                 console.log('mouse moved');
                 
-                /*don't use the jquery .animate here!! It won't work!!! Use css animations instead!!!!*/
-             $('.pointer1').removeClass("grow").addClass("shrink");
+                /*don't use the jquery .animate here!! It won't work!!! Use css instead!!!!*/
+             $('.pointer1').removeClass("grow1").addClass("shrink1");
+             $('.pointer2').removeClass("grow2").addClass("shrink2");
+             $('.pointer3').removeClass("grow3").addClass("shrink3");
 
                 /*setInterval sets loop wherein console logs idle every 1 sec*/
                 mousemoving = setInterval(function() {
                     console.log('Mouse idle for 1 sec');
-                    $('.pointer1').removeClass("shrink").addClass("grow");
+                    $('.pointer1').removeClass("shrink1").addClass("grow1");
+                     $('.pointer2').removeClass("shrink2").addClass("grow2");
+                     $('.pointer3').removeClass("shrink3").addClass("grow3");
                     
                 }, 1000);
             });

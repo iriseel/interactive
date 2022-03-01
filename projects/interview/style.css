@@ -36,7 +36,7 @@ nav {
     
     color:rgb(55, 55, 255);
     text-align:center;
-    height:calc(100vh - 32px);
+    height:calc(100vh - 1em);
 
     display:flex;
     flex-flow: column nowrap;
@@ -193,7 +193,6 @@ a:visited, a:active {
 }
 
 
-
 .pointer {
     position:absolute;
     border-radius:50%;
@@ -212,7 +211,6 @@ a:visited, a:active {
     animation-fill-mode: forwards;
     
 }
-
 
 .pointer1 {
     width: 200px;
@@ -275,39 +273,41 @@ a:visited, a:active {
     height:110px;
     background:rgba(255,84,20,.2); transition: left 1s linear, top 1s linear;
 }
-.grow {
-    
-    animation: grow 10s;
-}
-.shrink {
-        
-    animation: shrink 1s;
-}
-/*???
-By setting the starting size in this animation, I'm making it so that if the pointer is not finished diminishing in size from a previous pause (grow) before being paused again (starting another grow animation), it forces the pointer to shrink immediately back to 200px x 200px, instead of fading back into the size, hence a jumpy effect
-But my current attempt to use jquery addClass and removeClass instead also doesn't solve the issue :(((((((((
+
+/*
+    Before, I was using CSS keyframe animations to do this, but because those require a set starting size, it was making it so that if the pointer was not finished diminishing in size from a previous pause (grow) before being paused again (triggering another grow animation), it forced the pointer to shrink immediately back to 200px x 200px (to start growing from there again), instead of fading back into the size, creating a jumpy effect. The same would happen for when the mouse started moving again before a grow had fully completed (the pointer would jump into its max size to shrink down).
 */
-@keyframes grow {
-    from {
-        width:200px;
-        height:200px;
-    }
-    to {
-        width: 300px;
-        height:300px;
-    }
+.grow1 {
+    transition: 16s;
+    width: 430px;
+    height:430px;
+}
+.shrink1 {
+    transition: 1s;
+    width: 200px;
+    height: 200px;
 }
 
+.grow2 {
+    transition: 16s;
+    width: 360px;
+    height:360px;
+}
+.shrink2 {
+    transition: 1s;
+    width: 190px;
+    height: 190px;
+}
 
-@keyframes shrink {
-    from {
-      width: 300px;
-      height: 300px;
-    }
-    to {
-      width: 200px;
-      height: 200px;
-    }
+.grow3 {
+    transition: 16s;
+    width: 300px;
+    height:300px;
+}
+.shrink3 {
+    transition: 1s;
+    width: 170px;
+    height: 170px;
 }
 
 
@@ -354,7 +354,7 @@ But my current attempt to use jquery addClass and removeClass instead also doesn
     
     nav {
         top:16px;
-        height:calc(100vh - 16px);
+        height:calc(100vh - 2em);
     }
     
     nav a, nav .info_btn {
