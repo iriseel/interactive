@@ -17,10 +17,13 @@ setInterval(function(){
     if ((sequential_img == 6) && (padding == 30)) {
         $(".message").html("Enter");
         remembered = true;
+        //????$("#audio"); doesn't work????
+        var enter_sfx = document.getElementById("audio");
+        enter_sfx.play();
     }   
     
     else if (sequential_img != 6) {
-        $(".message").html("I am trying to remember a scene .... Your options are: space, delete, +, -, enter, capslock");
+        $(".message").html("I am trying to remember a scene, will you help me?<br><br>&#9731;<br><br> Your options are: +, -, space, capslock, delete, enter");
          }
     
     console.log("padding:" + padding);
@@ -40,7 +43,7 @@ $(window).keydown(function(e){
   console.log(key);
     console.log(sequential_img);
 
-    //If I wanted to check for a word typed, I would have to make an array and check its contents
+    //If I wanted to check for a word typed, I would have to make an array and check its contents ... (I haven't done that)
     if ((remembered == true) && (key == "Enter")) {
         window.location.replace("memory.html");
     }
@@ -107,6 +110,10 @@ $(window).keydown(function(e){
     
 });
 
+
+
+
+//MEMORY HTML JS
 function playSound() {
     var sound = document.getElementById("audio");
      if (sound.paused == false) {

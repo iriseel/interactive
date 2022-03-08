@@ -9,6 +9,7 @@ img.recall {
     height:auto;
     padding:0;
     margin:0;
+    filter:invert(100%);
     animation: shimmer2 3s infinite alternate;
 }
 
@@ -18,13 +19,15 @@ img.recall {
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
+    text-align:center;
 }
 
 .scene {
     position:absolute;
-    opacity:.1;
+    opacity:.3;
     top:0;
     left:0;
+    background:url("https://c.tenor.com/GQO_PZDHaR8AAAAC/snow-white.gif") repeat;
 }
 
 .scene img {
