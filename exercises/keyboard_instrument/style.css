@@ -1,0 +1,71 @@
+body {
+    margin:0;
+    padding:0;
+    background-color:black;
+}
+
+img.recall {
+    width:300px;
+    height:auto;
+    padding:0;
+    margin:0;
+    animation: shimmer2 3s infinite alternate;
+}
+
+.message {
+    color:white;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.scene {
+    position:absolute;
+    opacity:.1;
+    top:0;
+    left:0;
+}
+
+.scene img {
+    width:400px;
+    height:auto;
+    padding:30px;
+    animation: shimmer 2s infinite alternate;
+}
+
+
+@keyframes shimmer {
+  from {
+    opacity:.5;
+  }
+
+  to {
+    opacity:1;
+  }
+}
+    
+
+@keyframes shimmer2 {
+  from {
+    opacity:.2;
+  }
+
+  to {
+    opacity:.5;
+  }
+}
+    
+
+/*memory styling!!*/
+.bg {
+    width:100vw;
+    height:100vh;
+    background-image:url("https://cdn.wallpapersafari.com/98/85/VUwApR.gif");
+    background-repeat:repeat;
+    background-size:contain;
+}
+
+.bg:hover {
+    cursor:pointer;
+}
