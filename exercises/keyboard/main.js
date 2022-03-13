@@ -1,3 +1,5 @@
+//see if you can remove the + "px" and still get this to work!!!!
+
 //must have padding var set outside of keydown function, or else padding is reset to 0 every time a key is pressed and therefore doesn't accumulate across presses
 var padding = 0;
 var new_img_set = [
@@ -11,10 +13,14 @@ var new_img_set = [
 
 var sequential_img = 0,
     remembered = false,
-    img_width = $("img.recall").width();
+    //var img_width needs to be defined at window load, otherwise it starts out undefined bc there are no img.recall on the page yet (they are added only after + is pressed)
+    img_width = 300;
+
+    
 
 setInterval(function(){ 
-    if ((sequential_img == 6) && (padding == 30)) {
+    
+    if ((sequential_img == 6) && (padding == 30) && (img_width == 330)) {
         $(".message").html("Enter");
         remembered = true;
         //????$("#audio"); doesn't work????
@@ -23,12 +29,11 @@ setInterval(function(){
     }   
     
     else if (sequential_img != 6) {
-        $(".message").html("I am trying to remember a scene, will you help me?<br><br>&#9731;<br><br> Your options are: +, -, space, capslock, delete, enter");
+        $(".message").html("I am trying to remember a scene ... can you help me recreate my memory?<br><br>&#9731;<br><br> Your options are: +, -, space, capslock, delete, enter");
          }
     
     console.log("padding:" + padding);
     
-    //??why is img_width always undefined???
     console.log ("img width:" + img_width);
     console.log("sequence:" + sequential_img);
 }, 500);
@@ -91,14 +96,13 @@ $(window).keydown(function(e){
 
     // add img size for capslock pressed
     else if (key == "CapsLock") {
-            var img_width = $("img.recall").width() + 10;
+            img_width = $("img.recall").width() + 10;
 
             img_width_px = img_width + "px";
 
              $("img.recall").css(
               "width", img_width_px);
         
-            console.log ("img width:" + img_width);
     }
 
       else if (key == "Backspace") {

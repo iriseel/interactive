@@ -31,7 +31,7 @@ img.recall {
 }
 
 .scene img {
-    width:400px;
+    width:330px;
     height:auto;
     padding:30px;
     animation: shimmer 2s infinite alternate;

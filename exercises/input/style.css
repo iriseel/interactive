@@ -1,0 +1,166 @@
+body {
+    background-color: greenyellow;
+    padding:0;
+    margin:0;
+}
+
+label[for=cube_images], select#cube_images {
+    color:hotpink;
+    font-family: 'Astloch', cursive;
+}
+
+
+label[for=cube_images] {
+    display:block;
+    padding:.5em;
+    text-align:center;
+    font-size: 32px;
+    
+    /*?? How do I make the box-shadow of the .gridblocks not intrude into the background of the label??*/
+    background-color:greenyellow;
+    z-index:3;
+}
+
+select#cube_images {
+    position:absolute;
+    z-index:2;
+    left: 0; 
+    right: 0; 
+    margin: 0.5em auto;
+    
+    appearance: none; 
+    width:4em;
+    height:2em;
+    text-align:center;
+    font-size: 60px;
+    color:hotpink;
+    background-color:greenyellow;
+    border:hotpink solid 10px;
+    box-shadow:
+        0px 0px 0px 10px greenyellow,
+        0px 0px 0px 20px hotpink;
+    
+}
+
+input[type=range] {
+  direction: rtl;
+    appearance:none;
+     -webkit-appearance: none;
+    background:hotpink;
+    position:absolute;
+    z-index:2;
+    bottom:2em;
+    left: 0; 
+    right: 0; 
+    margin: 0.5em auto;
+    width:200px;
+    border:greenyellow solid 10px;
+    box-shadow:
+        0px 0px 0px 10px hotpink,
+        0px 0px 0px 20px greenyellow;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: greenyellow;
+  cursor: pointer;
+    border:hotpink solid 3px;
+}
+
+
+.eye {
+    position:absolute;
+    z-index:1;
+    width: 10%;
+    height: 10%;
+    transform:translate(-50%,-50%);
+    transform-style: preserve-3d;
+    animation: changePerspective 16s ease-in-out alternate infinite;
+}
+
+.eye.left {
+    left:20%;
+    top:50%;
+}
+
+.eye.right {
+    right:20%;
+    top:50%;
+}
+
+
+@keyframes changePerspective {
+    0%{transform: translateZ(-300px) rotateX(0deg) rotateY(0deg);}
+    100%{transform: translateZ(-300px) rotateX(360deg) rotateY(360deg);} 
+}
+
+.face {
+    position: absolute;
+    width: 20vw;
+    height: 20vw;
+    
+    filter: opacity(0.6);
+    background: url(img/beauty.jpg) repeat;
+    background-size:contain;
+}
+
+/*translate Z must always be half of .face width and height for the cube sides to stay together*/
+.face.front {
+    transform: rotateX(0deg) translateZ(10vw);
+    
+}
+
+.face.back {
+    transform: rotateX(180deg) translateZ(10vw);
+    
+}
+
+.face.top {
+    transform: rotateX(90deg) translateZ(10vw);
+}
+
+.face.right {
+    transform: rotateY(90deg) translateZ(10vw);
+}
+
+.face.bottom {
+    transform: rotateX(-90deg) translateZ(10vw);
+}
+
+.face.left {
+    transform: rotateY(-90deg) translateZ(10vw);
+}
+
+
+
+.grid {
+    display: grid;
+    grid-template-columns: 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw;
+    background-color: transparent;
+    grid-gap:0px;
+    padding:0;
+    margin:0;
+    position:absolute;
+    z-index:-1;
+}
+
+/*?? Why is the browser window filling up with 50-60 .gridblocks (5-6rows) when their height is 10vh? Shouldn't it only fill up with 10 rows of .gridblocks??*/
+.grid_block {
+    background-color: greenyellow;
+    height:10vh;
+    font-size: 30px;
+    text-align: center;
+    padding:0;
+    margin:0;
+    
+    border: 4vmin deeppink dashed;
+    
+    box-shadow:
+        0px 0px 10px 0px #00980B,
+        0px 0px 30px 0px #9DA6FF,
+        0px 0px 50px 0px #9DFF9E,
+        0px 0px 100px 0px #FFFD9D;
+}
