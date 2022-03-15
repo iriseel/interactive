@@ -1,7 +1,16 @@
+* {
+   box-sizing: border-box;
+}
+
 body {
     background-color: greenyellow;
     padding:0;
     margin:0;
+}
+
+.container {
+    height:100vh;
+    overflow-y:hidden;
 }
 
 label[for=cube_images], select#cube_images {
@@ -42,53 +51,77 @@ select#cube_images {
     
 }
 
+/*styling common to all input with type=range*/
 input[type=range] {
-  direction: rtl;
     appearance:none;
-     -webkit-appearance: none;
-    background:hotpink;
-    position:absolute;
+    -webkit-appearance: none;
     z-index:2;
     bottom:2em;
-    left: 0; 
-    right: 0; 
     margin: 0.5em auto;
     width:200px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+/*individualized styling for different type-ranges ensues*/
+input[id=speed] {
+    direction: rtl;
+
+    background:hotpink;
+    position:absolute;
+
+    left: 10%; 
     border:greenyellow solid 10px;
     box-shadow:
         0px 0px 0px 10px hotpink,
         0px 0px 0px 20px greenyellow;
 }
 
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
+input[id=speed]::-webkit-slider-thumb {
   background: greenyellow;
-  cursor: pointer;
     border:hotpink solid 3px;
+}
+
+input[id=spacing] {
+   
+    background:greenyellow;
+    position:absolute;
+    
+    right: 10%; 
+    border:hotpink solid 10px;
+    box-shadow:
+        0px 0px 0px 10px greenyellow,
+        0px 0px 0px 20px hotpink;
+}
+
+input[id=spacing]::-webkit-slider-thumb {
+  background: hotpink;
+    border:greenyellow solid 3px;
 }
 
 
 .eye {
     position:absolute;
     z-index:1;
-    width: 10%;
-    height: 10%;
-    transform:translate(-50%,-50%);
+    width: 40vmin;
+    height: 40vmin;
+    top:36%;
     transform-style: preserve-3d;
     animation: changePerspective 16s ease-in-out alternate infinite;
 }
 
 .eye.left {
-    left:20%;
-    top:50%;
+    left:10%;
 }
 
 .eye.right {
-    right:20%;
-    top:50%;
+    right:10%;
 }
 
 
@@ -99,39 +132,40 @@ input[type=range]::-webkit-slider-thumb {
 
 .face {
     position: absolute;
-    width: 20vw;
-    height: 20vw;
+    width: 100%;
+    height: 100%;
     
     filter: opacity(0.6);
-    background: url(img/beauty.jpg) repeat;
+    background-image: url(img/beauty.jpg);
+    background-repeat:repeat;
     background-size:contain;
 }
 
 /*translate Z must always be half of .face width and height for the cube sides to stay together*/
 .face.front {
-    transform: rotateX(0deg) translateZ(10vw);
+    transform: rotateX(0deg) translateZ(10vmin);
     
 }
 
 .face.back {
-    transform: rotateX(180deg) translateZ(10vw);
+    transform: rotateX(180deg) translateZ(10vmin);
     
 }
 
 .face.top {
-    transform: rotateX(90deg) translateZ(10vw);
+    transform: rotateX(90deg) translateZ(10vmin);
 }
 
 .face.right {
-    transform: rotateY(90deg) translateZ(10vw);
+    transform: rotateY(90deg) translateZ(10vmin);
 }
 
 .face.bottom {
-    transform: rotateX(-90deg) translateZ(10vw);
+    transform: rotateX(-90deg) translateZ(10vmin);
 }
 
 .face.left {
-    transform: rotateY(-90deg) translateZ(10vw);
+    transform: rotateY(-90deg) translateZ(10vmin);
 }
 
 
@@ -143,20 +177,22 @@ input[type=range]::-webkit-slider-thumb {
     grid-gap:0px;
     padding:0;
     margin:0;
-    position:absolute;
+    position:relative;
     z-index:-1;
+    width:100vw;
+    height:100vh;
 }
 
-/*?? Why is the browser window filling up with 50-60 .gridblocks (5-6rows) when their height is 10vh? Shouldn't it only fill up with 10 rows of .gridblocks??*/
+/*The browser window was filling up with just 50-60 .gridblocks (5-6rows) even though  their height was 10vh (should've taken 10 rows of .gridblocks) bc the border was adding extra height (couldn't be accounted for just by changing *: border-box)*/
 .grid_block {
     background-color: greenyellow;
-    height:10vh;
+    height:calc(10vh - 1.5vmin);
     font-size: 30px;
     text-align: center;
     padding:0;
     margin:0;
     
-    border: 4vmin deeppink dashed;
+    border: 1.5vmin deeppink dashed;
     
     box-shadow:
         0px 0px 10px 0px #00980B,

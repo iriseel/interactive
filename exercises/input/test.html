@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ooooooooo</title>
+      
+      
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Astloch:wght@700&display=swap" rel="stylesheet">
+      
+    <style>
+
+      .face {
+    position: absolute;
+    width: 20vw;
+    height: 20vw;
+    
+    background-image: url(img/beauty.jpg);
+    background-size:contain;
+    }
+
+          </style>
+      </head>
+    
+  <body>
+  
+  <label for="cube_images">You are looking through the eyes of an AI. &nbsp;<span style="font-size:1.5em;">&#9881;</span>&nbsp; What do you want to see?</label>
+
+    <select name="cube_images" id="cube_images">
+      <option value="0">beauty</option>
+      <option value="1">ugliness</option>
+      <option value="2">love</option>
+      <option value="3">hate</option>
+      <option value="4">memory</option>
+      <option value="5">time</option>
+      <option value="6">good</option>
+      <option value="7">evil</option>
+    </select>
+  
+        <div class="face"></div>
+
+  
+  
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      
+      <script type="text/javascript">
+          var cube_image;
+var cube_images = [
+    "img/beauty.jpg",
+    "img/evil.jpg",
+    "img/good.jpg",
+    "img/hate.jpg",
+    "img/love.jpg",
+    "img/memory.jpg",
+    "img/time.jpg",
+    "img/ugly.jpg"
+];
+
+//?? Why is the image becoming grayed out once it changes???
+$("#cube_images").change(function(){
+    //cube_image is a number, as defined in the html
+    cube_image = $("#cube_images").val();
+    console.log(cube_image);
+    $(".face").css("background-image", "url(" + cube_images[cube_image] + ")");
+})
+      </script>
+  </body>
+</html>

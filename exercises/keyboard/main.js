@@ -1,5 +1,11 @@
 //see if you can remove the + "px" and still get this to work!!!!
 
+
+//PSA: $("#audio"); doesn't work
+//Have this pause function at start of page load bc otherwise sometimes the sound will start playing automatically even ithout having met the conditions
+var enter_sfx = document.getElementById("audio");
+        enter_sfx.pause();
+
 //must have padding var set outside of keydown function, or else padding is reset to 0 every time a key is pressed and therefore doesn't accumulate across presses
 var padding = 0;
 var new_img_set = [
@@ -23,8 +29,6 @@ setInterval(function(){
     if ((sequential_img == 6) && (padding == 30) && (img_width == 330)) {
         $(".message").html("Enter");
         remembered = true;
-        //????$("#audio"); doesn't work????
-        var enter_sfx = document.getElementById("audio");
         enter_sfx.play();
     }   
     

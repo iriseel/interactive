@@ -201,7 +201,9 @@ a:visited, a:active {
     left:50%;
     transform:translate(-50%,-50%);
     opacity:.5;
-    filter:blur(20px);
+    
+    /*safari screws up rendering this filter (leaves border edges + after-images as pointer moves) and I haven't been able to find a fix (;´༎ຶД༎ຶ`)*/
+    filter:blur(20px); 
     /*???Why can't this be 1 or 0? Why must it be negative for it to be behind the text when the .interview z-index is 3??*/
     z-index:-1;
 
