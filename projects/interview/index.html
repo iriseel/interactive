@@ -26,43 +26,44 @@
             </p>
           </div>
       </div>
-
-          <a href="#question-1" title="a question you would like to be asked">&#9638;</a>
+          
+          <a href="#question-1" title="a question you would like to be asked" class="subnav">&#9638;</a>
           <!--<br>&#8595;<br>-->
 
-          <a href="#intro" title="self-introduction">&#9637;</a>
-
-          <!--<br>&#8595;<br>-->
-
-          <a href="#negspace1" title="Dictionary of Negative Space">&#9634;</a>
+          <a href="#intro" title="self-introduction" class="subnav">&#9637;</a>
 
           <!--<br>&#8595;<br>-->
 
-          <a href="#negspace2" title="language and loss, losses in language">&#9634;</a>
+          <a href="#negspace1" title="Dictionary of Negative Space" class="subnav">&#9634;</a>
+
+          <!--<br>&#8595;<br>-->
+
+          <a href="#negspace2" title="language and loss, losses in language" class="subnav">&#9634;</a>
 
           <!--<br>-->
 
-          <a href="#negspace3" title="a dictionary without names">&#9634;</a>
+          <a href="#negspace3" title="a dictionary without names" class="subnav">&#9634;</a>
 
           <!--<br>-->
 
-          <a href="#negspace4" title="food for thought">&#9634;</a>
+          <a href="#negspace4" title="food for thought" class="subnav">&#9634;</a>
 
             <!--<br>&#8595;<br>-->
 
-          <a href="#chicken" title="chicken">&#128020;</a>
+          <a href="#chicken" title="chicken" class="subnav">&#128020;</a>
 
           <!--<br>&#8595;<br>-->
 
-          <a href="#now" title="what are you up to now?">&#9636;</a>
+          <a href="#now" title="what are you up to now?" class="subnav">&#9636;</a>
 
           <!--<br>&#8595;<br>-->
 
-           <a href="#color" title="favorite color?">&#9640;</a>
+           <a href="#color" title="favorite color?" class="subnav">&#9640;</a>
 
           <!--<br>&#8595;<br>-->
 
-          <a href="#question-2" title="how you would answer that question">&#9638;</a>
+          <a href="#question-2" title="how you would answer that question" class="subnav">&#9638;</a>
+              
        </nav>
 
 
@@ -764,6 +765,26 @@
                     
                 }, 1000);
             });
+          
+          
+        $(".info_btn").click(function() {
+            
+           if ($(".subnav").css("visibility") == "hidden") {
+               $(".subnav").css({
+                   "visibility": "visible",
+                   "opacity":"1",
+                    "margin-left": "16px"
+               });
+           }
+            else {
+                $(".subnav").css({
+                   "visibility": "hidden",
+                   "opacity":"0",
+                    "margin-left": "0px"
+               });
+            }
+            
+        })
           
       </script>
 
