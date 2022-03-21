@@ -1,0 +1,296 @@
+* {
+    box-sizing: border-box;
+    font-size:32px;
+    margin: 0;
+    padding:0;
+}
+
+html {
+    /*??? Something about accessibility concerns??*/
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: "Youth";
+  src: url("fonts/Youth-Thin.otf") format("otf");
+}
+
+
+body {
+  font-family: "Youth";
+    color:white;
+    background-color:white;
+    cursor:auto;
+}
+
+nav {
+    position:fixed;
+    top:16px;
+    left:0px;
+    z-index:4;
+    color:rgb(55, 55, 255);
+    text-align:center;
+    height:calc(100vh - 1em);
+
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+.info_btn {
+    color:white;
+    text-shadow:1px 1px 8px blue;
+    margin-left:16px;
+}
+
+.subnav {
+    opacity:0;
+    visibility:hidden;
+    margin-left:0px;
+    transition:1s;
+}
+
+.info_btn:hover {
+    cursor:pointer;
+}
+
+nav a:link {
+    color:blue;
+    text-decoration:none;
+}
+
+nav a:visited {
+    color:#FFAD00;
+    text-decoration:none;
+}
+
+.info {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding:32px;
+    width:calc(100vw - 128px - 32px);
+    max-width: 560px;
+    height:auto;
+    border:.1px solid blue;
+    background:rgba(255,255,255,1);
+
+    visibility:hidden;
+    opacity:0;
+    transition:1s;
+
+    display:flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    z-index:5;
+}
+
+.info p {
+    font-size:.7em;
+    color:blue;
+    text-shadow:none;
+}
+
+.info_btn:hover .info {
+    visibility:visible;
+    opacity:1;
+}
+
+.interview {
+    padding:32px;
+    padding-top:16px;
+    z-index:3;
+    margin-left:32px;
+    letter-spacing: .015em;
+}
+
+p {
+    margin: .5em 0em;
+}
+
+.interview p {
+    /*mix-blend-mode: color-dodge;*/
+    color: blue;
+    line-height: 2.75;
+}
+
+/*selects all p that have any id (in this case that means any new question), except the very first one*/
+p[id]:not(:first-of-type) {
+   margin-top:100vh;
+}
+
+p[id]:first-of-type {
+   margin-top:0;
+}
+
+span.siri, span.karen {
+    padding: 0em 0em 0.25em 0em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    /*Q: Is there a way to only apply this to the border??
+    A: Not really. Maybe make another layer of this same text but make text transparent and apply blend mode to that element only
+    mix-blend-mode:color-dodge;
+    */
+}
+
+
+p.siri {
+    padding-right:calc((40vw - 64px) - .5em);
+}
+
+p.karen {
+    padding-left:calc((40vw - 64px) - .5em);
+    transition:1s;
+}
+
+span.siri {
+/*Hack to make custom dotted border/underline, found on https://stackoverflow.com/questions/6250394/how-to-increase-space-between-dotted-border-dots*/
+    background-image: linear-gradient(to right, #FFAD00 70%, rgba(255,255,255,0) 0%);
+    background-position: bottom;
+    background-size: 20px 1px;
+    background-repeat: repeat-x;
+    
+}
+
+span.siri::before {
+  content: "*";
+    font-size:.7em;
+    vertical-align: super;
+    margin-left:-.8em;
+    color:orange;
+}
+
+span.karen {
+    background-image: linear-gradient(to right, blue 70%, rgba(255,255,255,0) 0%);
+    background-position: bottom;
+    background-size: 20px 1px;
+    background-repeat: repeat-x;
+}
+
+/*??? Originally had text-shadow as 
+  text-shadow: 0em 2em 0 blue;
+but resulted in jittery text-shadow that was basically unsolvable. So switched to outline*/
+.siri::selection, .karen::selection,
+.siri a::selection, .karen a::selection,.highlight::selection {
+   color:transparent; background:transparent;
+}
+
+a {
+    color:rgb(255,84,20);
+    text-decoration: none;
+    mix-blend-mode: color;
+}
+
+/*???
+this doesn't work in safari*/
+a:visited, a:active {
+    color:rgb(0,0,255);
+    text-decoration: none;
+}
+
+
+.highlight {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: .016em;
+  -webkit-text-stroke-color: blue;
+
+}
+
+.right {
+    text-align:right;
+}
+
+
+.center {
+    text-align: center;
+}
+
+
+.invisible {
+    position:absolute;
+    opacity:0;
+    z-index:-5;
+}
+
+
+
+/*MEDIA QUERIES*/
+@media screen and (hover:none) {
+    
+    a {
+        color:rgba(0,0,255,0.01);
+        mix-blend-mode: normal;
+    }
+    
+    /*disable selection on ios*/
+    p, div[class^="pointer"] {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
+    }
+    
+    /*Change text-shadow reveal from highlight to clicking, since :selection doesn't work on ios*/
+    p:active, p:focus {
+        background:transparent;
+        text-shadow: 0em 2em 0 blue;
+        transition:1s;
+    }
+    
+    
+    p.siri, p.karen {
+        padding-right:0;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    p.siri {
+        padding-right:calc((20vw) - .5em);
+    }
+
+    p.karen {
+        padding-left:calc((20vw - 64px) - .5em);
+    }
+}
+
+@media screen and (max-width:750px) {
+    p.siri, p.karen {
+        padding-right:0;
+    }
+}
+
+@media screen and (max-width:461px) {
+    * {
+    font-size:22px;
+        
+    }
+    
+    nav {
+        top:16px;
+        height:calc(100vh - 2em);
+    }
+    
+    nav a, nav .info_btn {
+        font-size:32px;
+    }
+    
+    .info {
+        min-width: calc(100vw - 64px - 32px);
+        left: calc(32px + 32px);
+        transform: translate(0px, -50%);
+    }
+    
+    .info p {
+        font-size:1em;
+    }
+
+    
+ }
+    
