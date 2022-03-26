@@ -329,28 +329,48 @@
       <script type="text/javascript">
           
           //????? THIS IS REPLACING ALL THE P.KAREN WITH JUST THE FIRST PARAGRAPH TEXT!!!!??
-          
+
          /*
          To randomize letter-spacing.
          Hack taken from: https://stackoverflow.com/questions/42114159/how-to-randomise-word-spacing-in-a-paragraph
          */
-        var newText = $('p.karen').html().replace(/\s/g, function() {
+        var newText = $('p.karen').text().replace(/\s/g, function() {
             console.log("space added");
-           return " _".repeat(Math.floor(Math.random() * 25 + 1))
+            
+            return "<span class='remove'> _</span>".repeat(Math.floor(Math.random() * 25 + 1))
         });
+          
         $('p.karen').html(newText);
+        
+          /*
+        Matt Wolff Code:
+        var newText = $('p.karen').text().replace(/\s/g, function() {
+            console.log("space added");
+            let colors = ['red', 'green', 'pink'];
+            let randomColor = colors[Math.floor(Math.random * colors.length)];
+            
+            
+            return `<span class='remove ${randomColor}'> _</span>`.repeat(Math.floor(Math.random() * 25 + 1))
+        });
+          */
+        
+      //normalize letter-spacing on click (replace all spaces more than 1 with just 1 space)
+      $("p.karen").click(function() {
+          $(".remove").addClass(".fadeout");
+        });
           
           
-          //??????HOW TO ADD TRANSITION TO THIS????
+          /*
           
-         //normalize letter-spacing on click (replace all spaces more than 1 with just 1 space)
-          $("p.karen").click(function() {
-              $("p.karen").html($("p.karen").html().replace(/\ _/g, " ")); 
-               $("p.karen").html($("p.karen").html().replace(/\s+/g, " "));  
-            });
-                       
-          
-      </script>
+        //??????HOW TO ADD TRANSITION TO THIS????
+        
+      //normalize letter-spacing on click (replace all spaces more than 1 with just 1 space)
+      $("p.karen").click(function() {
+          $("p.karen").html($("p.karen").html().replace(/\ _/g, " ")); 
+           $("p.karen").html($("p.karen").html().replace(/\s+/g, " "));  
+        });
 
+          */
+      </script>
   </body>
 </html>

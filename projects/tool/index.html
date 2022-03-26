@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>capture and release</title>
+    <link rel="icon" type="image/png" href="&#8779;"/>
+ 
+      
+    <link rel="stylesheet" href="style.css">
+      
+      
+    </head>
+    
+  <body>
+<!--
+      THIS WEBSITE OMGOMGOMG 
+      http://www.joanocean.com/#anchor52291
+-->
+      
+    
+      
+      
+     <img src="img/palau/Jorunna_funebris.jpg" class="funebris">
+         
+      <div class="info">
+      If you want to capture another sea critter, you have to release the one you already got! (words included)
+      </div>
+      
+      
+      <div class="caption">
+      tender
+      </div>
+      
+      <div class="caption">
+      violent
+      </div>
+      
+      
+      <div class="caption">
+      symbiotic
+      </div>
+      
+      <div class="caption">
+      transience
+      </div>
+      
+      <div class="caption">
+      will the photos of these critters outlast their bodies?
+      </div>
+      
+      
+      
+      
+    <!--     displacement filter taken from https://www.youtube.com/watch?v=q-i0rZBZvBk
+    It's cool but a lil too extra to use on entire sea bg :)
+
+    <div class="displacement"></div>
+      -->    
+        <svg>
+          <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+            <feTurbulence id="sea-filter" numOctaves="3" seed="2" baseFrequency="0.1 0.005"></feTurbulence>
+            <feDisplacementMap scale="10" in="SourceGraphic"></feDisplacementMap>
+            <animate xlink:href="#sea-filter" attributeName="baseFrequency" dur="30s" 
+            keyTimes="0;0.5;1" values="0.02 0.06;0.04 0.08;0.02 0.06" repeatCount="indefinite"/>
+          </filter>
+        </svg>
+
+      
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      
+    <script type="text/javascript">
+        
+        
+        //??Is there a way to randomize the swimming and bounce animations???
+        
+       var distance,
+           caught = false;
+        
+        //This code will calculate the distance between the mouse cursor and the center of an element. Taken from https://css-tricks.com/snippets/jquery/calculate-distance-between-mouse-and-element/
+        (function() {
+
+            var mX, mY,
+            $element  = $('img');
+
+            function calculateDistance(elem, mouseX, mouseY) {
+                return Math.floor(Math.sqrt(Math.pow(mouseX - (elem.offset().left+(elem.width()/2)), 2) + Math.pow(mouseY - (elem.offset().top+(elem.height()/2)), 2)));
+            }
+
+            $(document).mousemove(function(e) {  
+                mX = e.pageX;
+                mY = e.pageY;
+                distance = calculateDistance($element, mX, mY);
+                console.log(distance);  
+                
+                
+                /*
+            //?? Why isn't the img escaping???? Also why must this if statement be inside of the large (function() for distance to even register???
+            if (distance < 200) {
+                console.log("HEY!!!");
+
+                var dWidth = $(document).width(),
+                  dHeight = $(document).height(),
+
+              // ??how to make minimum for nextX and nextY??
+                  nextX = Math.floor(Math.random() * dWidth),
+                  nextY = Math.floor(Math.random() * dHeight);
+
+              $("img").animate({
+                  left: nextX + "px",
+                  top: nextY + "px"
+              });
+                
+                console.log("dwidth is" + dWidth);
+            }
+    */
+            });
+            
+            
+
+        })();
+        
+        
+          //?? Why doesn't this if statement work when caught = true?? (img keeps escaping on hover even after clicked) 
+        if (caught == false) {
+        
+        //Make image escape cursor
+      $(".funebris").mouseover(function() {
+          // subtract image width and height from document dimensions if you don't wnat image to escape offscreen ... i don't care though
+          var dWidth = $(document).width(),
+              dHeight = $(document).height(),
+
+          // ??how to make minimum for nextX and nextY??
+              nextX = Math.floor(Math.random() * (dWidth/2)),
+              nextY = Math.floor(Math.random() * (dHeight/2));
+          
+          $(this).animate({
+              left: nextX + "px",
+              top: nextY + "px"
+          });
+      });
+      
+        };
+        
+     
+        $("img").click(function() {
+            $(this).css({
+                width: "1080px",
+                animation: "none",
+                filter: "blur(0px)"
+            });
+            
+            
+            var caught_sfx = new Audio("sfx/victory.mp3");
+            caught_sfx.play();
+            
+            caught = true;
+        });
+                                      
+                                      
+        setInterval(function() {
+            console.log(caught);
+            
+        },1000);                              
+          
+          
+          
+    </script>
+
+  </body>
+</html>

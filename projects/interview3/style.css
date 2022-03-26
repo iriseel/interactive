@@ -10,14 +10,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/*?? NOT WORKING??*/
 @font-face {
-  font-family: "Youth";
-  src: url("fonts/Youth-Thin.otf") format("otf");
+  font-family: "Bifur";
+  src: url("fonts/Bifur-Foundation.otf") format("otf"); font-weight: normal;
+    font-style: normal;
 }
 
-
 body {
-  font-family: "Youth";
+  font-family: "Bifur";
     color:white;
     background-color:white;
     cursor:auto;
