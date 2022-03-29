@@ -5,6 +5,12 @@
     padding:0;
 }
 
+.char1 {
+  background: red;
+  border:1px solid black;
+}
+
+
 html {
     /*??? Something about accessibility concerns??*/
   scroll-behavior: smooth;

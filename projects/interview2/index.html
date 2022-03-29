@@ -328,36 +328,42 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
       <script type="text/javascript">
           
-          //????? THIS IS REPLACING ALL THE P.KAREN WITH JUST THE FIRST PARAGRAPH TEXT!!!!??
-
-         /*
-         To randomize letter-spacing.
-         Hack taken from: https://stackoverflow.com/questions/42114159/how-to-randomise-word-spacing-in-a-paragraph
-         */
-        var newText = $('p.karen').text().replace(/\s/g, function() {
-            console.log("space added");
-            
-            return "<span class='remove'> _</span>".repeat(Math.floor(Math.random() * 25 + 1))
-        });
           
-        $('p.karen').html(newText);
-        
-          /*
-        Matt Wolff Code:
-        var newText = $('p.karen').text().replace(/\s/g, function() {
-            console.log("space added");
-            let colors = ['red', 'green', 'pink'];
-            let randomColor = colors[Math.floor(Math.random * colors.length)];
-            
-            
-            return `<span class='remove ${randomColor}'> _</span>`.repeat(Math.floor(Math.random() * 25 + 1))
-        });
-          */
-        
-      //normalize letter-spacing on click (replace all spaces more than 1 with just 1 space)
-      $("p.karen").click(function() {
-          $(".remove").addClass(".fadeout");
-        });
+          import charming from "https://cdn.skypack.dev/charming@3.0.2";
+          const element = document.querySelector('p.siri');
+            charming(element);
+
+//          
+//          //????? THIS IS REPLACING ALL THE P.KAREN WITH JUST THE FIRST PARAGRAPH TEXT!!!!??
+//
+//         /*
+//         To randomize letter-spacing.
+//         Hack taken from: https://stackoverflow.com/questions/42114159/how-to-randomise-word-spacing-in-a-paragraph
+//         */
+//        var newText = $('p.karen').text().replace(/\s/g, function() {
+//            console.log("space added");
+//            
+//            return "<span class='remove'> _</span>".repeat(Math.floor(Math.random() * 25 + 1))
+//        });
+//          
+//        $('p.karen').html(newText);
+//        
+//          /*
+//        Matt Wolff Code:
+//        var newText = $('p.karen').text().replace(/\s/g, function() {
+//            console.log("space added");
+//            let colors = ['red', 'green', 'pink'];
+//            let randomColor = colors[Math.floor(Math.random * colors.length)];
+//            
+//            
+//            return `<span class='remove ${randomColor}'> _</span>`.repeat(Math.floor(Math.random() * 25 + 1))
+//        });
+//          */
+//        
+//      //normalize letter-spacing on click (replace all spaces more than 1 with just 1 space)
+//      $("p.karen").click(function() {
+//          $(".remove").addClass(".fadeout");
+//        });
           
           
           /*

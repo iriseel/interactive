@@ -13,16 +13,20 @@
     </head>
     
   <body>
-<!--
-      THIS WEBSITE OMGOMGOMG 
-      http://www.joanocean.com/#anchor52291
--->
       
-    
+    <div class="bg_wrapper">
+      <div class="bg"></div>
+    </div>
+      
+      <div class="critter">
+        <img src="img/palau/Jorunna_funebris.jpg" class="funebris">
+    </div>
       
       
-     <img src="img/palau/Jorunna_funebris.jpg" class="funebris">
-         
+      <div class="critter">
+        <img src="img/palau/fish.jpg" class="funebris">
+    </div>
+      
       <div class="info">
       If you want to capture another sea critter, you have to release the one you already got! (words included)
       </div>
@@ -51,13 +55,14 @@
       
       
       
+      <!-- ?? THIS SVG IS ADDING EXTRA WHITE SPACE AT END OF DOCUMENT AND I CAN'T HIDE IT???-->
       
     <!--     displacement filter taken from https://www.youtube.com/watch?v=q-i0rZBZvBk
     It's cool but a lil too extra to use on entire sea bg :)
 
     <div class="displacement"></div>
       -->    
-        <svg>
+        <svg style="display:block; position:absolute; z-index:-1;visibility:none;">
           <filter id="turbulence" x="0" y="0" width="100%" height="100%">
             <feTurbulence id="sea-filter" numOctaves="3" seed="2" baseFrequency="0.1 0.005"></feTurbulence>
             <feDisplacementMap scale="10" in="SourceGraphic"></feDisplacementMap>
@@ -68,15 +73,113 @@
 
       
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
       
     <script type="text/javascript">
         
         
-        //??Is there a way to randomize the swimming and bounce animations???
+        /*more trying to randomize start positions
+        
+        //??How to get starting position to be randomized for every critter?
+        var critter_set = [
+            1,
+            2,
+            3
+        ];
+        
+        for (var i=1; i <= critter_set.length; i++) {
+        // Minimum 0 and maximum 60%. You can change that.  
+        var y = Math.max(0, Math.min(60, Math.ceil(Math.random() * 100)));
+        $(".critter").css({
+            top: y + '%'
+        });
+    };
+        
+        $(".critter");
+        
+        
+        */
+        
+        //trying to randomize start positions of .critters
+        $(document).ready(function(){
+            
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+            
+            
+            //define function that assigns random starting Y
+           function randomY() {
+               var height = $(window).height();
+    
+                var randomY = getRandomInt(height, 0);
+
+                //?? how to make the Y position not fall down/transition on page load??
+                $(this).css({
+                    top: randomY
+                });
+           } 
+           
+            //apply randomY function to each instance of .critter and .caption
+            $(".critter").each(randomY);
+            
+             $(".caption").each(randomY);
+            
+        
+            /*
+            
+            //?? "Uncaught TypeError: Cannot set property top of #<Window> which has only a getter" appears in console when this chunk of text is active????
+            //trying to randomize swimming and bouncing animations
+            $(".critter").each(function () 
+            {
+                var random_bounce1 = Math.floor(Math.random() * 600);
+                var random_bounce2 = Math.floor(Math.random() * 200);
+                
+                function swim_bounce(){
+                    
+                    //?? $(this) doesn't work??
+                $(this).animate(
+                    {top:"+=" + random_bounce1,
+                    left:"+=100"}, 500);
+
+                $(this).animate(
+                    {top:"-=" + random_bounce1,
+                    left:"+=100"}, 500);
+
+                $(this).animate(
+                    {top:"+=" + random_bounce2,
+                    left:"+=100"}, 500);
+
+                $(this).animate(
+                    {top:"-=" + random_bounce2,
+                    left:"+=100"}, 500);
+                };
+                
+        
+                //?? When the critter swims offscreen, that adds white space that overflow:hidden on body can't fix??!!!
+                //??How do I add easing to this so it's not so 走走停停???
+                //???How do I get this to work????
+                //??? This animation seems to interfere with the other animation $(this).animate when the img escapes cursor???
+                var swim_bounce = setInterval(swim_bounce, 400);
+                
+            });
+            
+            
+            
+    */
+            
+        });
+        
+        
+
+        
+        
         
        var distance,
            caught = false;
         
+        /*
         //This code will calculate the distance between the mouse cursor and the center of an element. Taken from https://css-tricks.com/snippets/jquery/calculate-distance-between-mouse-and-element/
         (function() {
 
@@ -94,7 +197,7 @@
                 console.log(distance);  
                 
                 
-                /*
+
             //?? Why isn't the img escaping???? Also why must this if statement be inside of the large (function() for distance to even register???
             if (distance < 200) {
                 console.log("HEY!!!");
@@ -113,40 +216,67 @@
                 
                 console.log("dwidth is" + dWidth);
             }
-    */
-            });
+    });
             
-            
+           
 
         })();
+        */ 
         
-        
-          //?? Why doesn't this if statement work when caught = true?? (img keeps escaping on hover even after clicked) 
-        if (caught == false) {
         
         //Make image escape cursor
-      $(".funebris").mouseover(function() {
+      $(".critter").mouseenter(function() {
+          //MUST PUT if statement INSIDE a function for it to check for truth/false on each mouseover, rather than only on page load
+          if (caught == false) {
           // subtract image width and height from document dimensions if you don't wnat image to escape offscreen ... i don't care though
-          var dWidth = $(document).width(),
-              dHeight = $(document).height(),
+          var wWidth = $(window).width(),
+              wHeight = $(window).height(),
 
-          // ??how to make minimum for nextX and nextY??
-              nextX = Math.floor(Math.random() * (dWidth/2)),
-              nextY = Math.floor(Math.random() * (dHeight/2));
+          //dWidth/2 is maximum value, + 100 is minimum
+              nextX = Math.floor(Math.random() * (wWidth/2)) + 100,
+              nextY = Math.floor(Math.random() * (wHeight/2));
           
           $(this).animate({
               left: nextX + "px",
               top: nextY + "px"
           });
+              
+        };
       });
       
-        };
-        
+        // search for way to cancel ^ $(this).aniamte if $("img).click
      
         $("img").click(function() {
+            //?? this doesn't seem to be stopping the $(this).animate?? trying to stop the animation when img is clicked
+            $(this).stop();
+            $(this).parent().stop();
+            
+            
+            //clearInterval(swim_bounce);
+           
+            /*
+            var currentX,
+                currentY,
+                offset;
+            
+            offset = $(this).offset();
+            currentX = offset.left;
+            currentY = offset.top;
+            
+            console.log(currentX);
+            console.log(currentY);
+            
+            */
+            
+            $(this).parent().css({
+                animation: "none"
+            });      
+            
             $(this).css({
-                width: "1080px",
-                animation: "none",
+                position:"absolute",
+                width: "80vw",
+                top: "0vh",
+                left: "0vw",
                 filter: "blur(0px)"
             });
             
