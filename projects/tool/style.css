@@ -70,11 +70,14 @@ body {
 
 /*invisible hitbox for jquery mouseenter*/
 .critter {
-    width:100px;
-    height: 100px;
+    width:400px;
+    height: 400px;
     position:absolute;
-    z-index:3;
-    top:20%;
+    z-index:4;
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
     
     /*
     animation: swimming 20s linear infinite, bounce 3s linear infinite;
@@ -93,6 +96,23 @@ img {
 img:hover {
     cursor:grab;
 }
+
+
+.funebris {
+    left:-10%;
+}
+
+.caption {
+    position:absolute;
+    z-index:3;
+    font-size: 2em;
+    
+    mix-blend-mode:overlay;
+    
+    transition: 1s;
+    
+}
+
 
 /*
 @keyframes swimming {
@@ -128,26 +148,6 @@ img:hover {
 }
 
 */
-
-.funebris {
-    left:-10%;
-}
-
-.caption {
-    position:absolute;
-    top:0;
-    z-index:3;
-    font-size: 2em;
-    
-    mix-blend-mode:overlay;
-    
-    /*
-    animation:swimming 20s linear infinite, bounce 3s linear infinite, rotate 15s linear infinite alternate-reverse;
-    */
-    
-}
-
-
 /*
 
 .displacement {
