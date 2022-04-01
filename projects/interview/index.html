@@ -14,7 +14,9 @@
     <!--MUST have ontouchstart for ios to recognize p:active and p:focus!!-->
   <body ontouchstart="">
 
-      <nav>
+
+<!--     Do NOT put nav inside interview, that messes up .info p for whatever reason -->
+    <nav id="nav">
         <div class="info_btn">
           ?
           <div class="info">
@@ -66,7 +68,6 @@
               
        </nav>
 
-
   <div class="interview">
       
 <!--
@@ -75,6 +76,25 @@
     </div>
 -->
       
+      
+      <div class="opening">
+          
+          <h1 class="bracket_left">
+            &lbrack;
+          </h1>
+          
+          <h1 class="bracket_right">
+            &rbrack;
+          </h1>
+
+          <h1 style="text-align:right; padding-top:66vh;">
+              <span class="highlight">An interview with</span> <a href="https://karenkrolak.com/">Karen Krolack</a>
+          </h1>
+          
+      </div>
+      
+      
+      
       <p id="question-1" class="siri">
         <span class="siri">
             Siri&#42889;  &thinsp;What is a question you would love to be asked of you?
@@ -82,7 +102,11 @@
       </p>
       <p class="karen">
         <span class="karen">
-            <a href="https://karenkrolak.com/">Karen</a>&#42889;  &thinsp;Would you like to tell me a story about one of your family members who died? People are often afraid of asking about dead people because they think it will remind someone who is grieving about their loss. <span class="highlight">The truth is talking about my mom, Rita, my dad, Patrick, and my brother, Patrick, helps me…makes the process of living without them more bearable.</span>
+            Karen&#42889;  &thinsp;Would you like to tell me a story about one of your family members who died? People are often afraid of asking about dead people because they think it will remind someone who is grieving about their loss. <span class="highlight">The truth is talking about my mom, Rita, my dad, Patrick, and my brother, Patrick, helps me…makes the process of living without them more bearable.</span>
+        </span>
+        <p class="siri">
+        <span class="siri">
+            &lbrack;conversation thread continued at end of interview&rbrack;
         </span>
       </p>
 
@@ -745,6 +769,29 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
       <script type="text/javascript">
+          
+      //sticky nav code
+      // When the user scrolls the page, execute myFunction
+        window.onscroll = function() {stickynav()};
+
+        // Get the navbar
+        var nav = document.getElementById("nav");
+
+        // Get the offset position of the navbar
+          //DO NOT name var same as function, otherwise browser gets confused when you try to run the function later
+        var sticky = nav.offsetTop;
+
+        // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function stickynav() {
+          if (window.pageYOffset >= sticky) {
+            nav.classList.add("sticky");
+              
+          } else {
+            nav.classList.remove("sticky");
+          }
+        };
+          
+          
         $(document).mousemove(function(e) {
          $('.pointer').css({left:e.pageX,top:e.pageY});
 

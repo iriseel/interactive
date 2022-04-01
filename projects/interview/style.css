@@ -15,6 +15,13 @@ html {
   src: url("fonts/Youth-Thin.otf") format("otf");
 }
 
+/*??this isn't working??*/
+@font-face {
+  font-family: "Youth";
+  src: url("fonts/Youth-Bold.otf") format("otf");
+    font-weight:bold;
+}
+
 
 body {
   font-family: "Youth";
@@ -29,10 +36,9 @@ body {
 }
 
 nav {
-    position:fixed;
-    top:16px;
+    position:absolute;
+    top:calc(100vh + 16px);
     left:0px;
-    z-index:4;
     color:rgb(55, 55, 255);
     text-align:center;
     height:calc(100vh - 1em);
@@ -40,6 +46,13 @@ nav {
     display:flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
+}
+
+.sticky {
+  position: fixed;
+  top:16px;
+    left:0px;
+    z-index:4;
 }
 
 .info_btn {
@@ -71,6 +84,7 @@ nav a:visited {
 
 .info {
     position:fixed;
+    z-index:5;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -91,7 +105,6 @@ nav a:visited {
     justify-content: center;
     align-content: center;
     align-items: center;
-    z-index:5;
 }
 
 .info p {
@@ -112,6 +125,35 @@ nav a:visited {
     margin-left:32px;
     letter-spacing: .015em;
 }
+
+.opening {
+    height:100vh;
+}
+
+.bracket_left, .bracket_right {
+    position:absolute;
+    top:18vh;
+    font-size:3em;
+
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-width: .006em;
+      -webkit-text-stroke-color: blue;
+    
+}
+
+.bracket_left {
+    left:0;
+}
+
+.bracket_right {
+    right:0;
+}
+
+h1 {
+    margin: 0vh 16px;
+}
+
 
 p {
     margin: .5em 0em;
@@ -146,22 +188,25 @@ span.siri, span.karen {
 This is a cool trick for absolute positioning a float. I didn't end up using it but it's cool:
 
 Hack sourced from https://stackoverflow.com/questions/1915831/text-wrapping-around-an-absolute-positioned-div*/
+/*
 .negative {
   float:left;  
   clear:both;
   width: 0em;
   margin: 2em 1em;
 }
+*/
 
-/* .negative has to be wrapped in div. This creates a shiv(?) to bump down the .negative and all text to wrap */
+/* 
+.negative has to be wrapped in div. This creates a shiv(?) to bump down the .negative and all text to wrap 
+*/
 .negative_wrap:before {
   content: '' ;
   display:block;
   float: right;
     /*height here is actually how far .negative is positioned vertically from top.
     Have to add + 100vh because all the p have margin-top:100vh*/
-    height:calc(2.75 * 1em + 100vh);
-  
+    height:calc(2.75 * 1em + 100vh); 
 }
 
 p.siri {
@@ -189,6 +234,19 @@ span.siri::before {
     color:orange;
 }
 
+
+/*
+.footnote {
+    font-size:.5em;
+    line-height:.2em;
+    vertical-align: super;
+    line-height:0em;
+    margin-left:0em;
+    color:white;
+}
+*/
+
+
 span.karen {
     background-image: linear-gradient(to right, blue 70%, rgba(255,255,255,0) 0%);
     background-position: bottom;
@@ -196,11 +254,16 @@ span.karen {
     background-repeat: repeat-x;
 }
 
-/*??? Originally had text-shadow as 
+/*?? Why doesn't this work for h1???*/
+/*Originally had text-shadow as 
   text-shadow: 0em 2em 0 blue;
 but resulted in jittery text-shadow that was basically unsolvable. So switched to outline*/
-.siri::selection, .karen::selection,
-.siri a::selection, .karen a::selection,.highlight::selection {
+.siri::selection,
+.karen::selection,
+.siri a::selection, 
+.karen a::selection,
+.highlight::selection, 
+h1::selection {
    color:blue; background:transparent;
 /*
      text-shadow:
