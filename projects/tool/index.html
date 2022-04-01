@@ -28,7 +28,16 @@
     </div>
       
       <div class="info">
-      If you want to capture another sea critter, you have to release the one you already got! (words included)
+      If you want to capture another sea critter, you have to release the one you already got!
+      </div>
+      
+      <div class="welcome">
+        <p>
+            Welcome to aquatic critters appreciation website! This is a place where sea lovers can upload their photos, and where viewers can experience the difficulties of visually capturing tiny, speedy ocean life that the photographers confronted when taking the photos!
+        </p>
+          <p>
+              To view a photo, catch a critter.
+          </p>
       </div>
       
       
@@ -85,7 +94,18 @@
     $(document).ready(function(){
             
         var direction = "right",
-            random_speed;
+            random_speed,
+
+            //?? How do I make this var caught specific to EACH img? Right now if i click 1 image it changes the var globally
+            caught = false;
+        
+        setTimeout(function() {
+            $(".welcome").css({
+                    visibility: "hidden",
+                    opacity: "0"
+                });
+            }, 9000);
+        
 
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
@@ -241,6 +261,7 @@
       $(".critter").mouseover(function() {
           
           console.log("escaping!");
+          
           //MUST PUT if statement INSIDE a function for it to check for truth/false on each mouseover, rather than only on page load
           if (caught == false) {
           // subtract image width and height from document dimensions if you don't wnat image to escape offscreen
@@ -258,9 +279,9 @@
           });
               
         
-              //??I can't tell why this happens, but sometimes it does and totally stops the animations on everything, both caption and critter???: Uncaught TypeError: Cannot set property top of #<Window> which has only a getter
+              //??I can't tell why this happens, but sometimes it does and totally stops the animations on everything, both caption and critter??? Seems like it happens when cursor enters .critter hitbox??: Uncaught TypeError: Cannot set property top of #<Window> which has only a getter
             
-              // want to delay the restaring of bouncing animation so the escaping animation has time to run
+              // want to delay the restarting of bouncing animation so the escaping animation has time to run
               setTimeout(function() {
 
                 if (direction === "right") {
@@ -290,12 +311,12 @@
       });
         
           
-    //?? How do I make this var caught specific to EACH img? Right now if i click
-        var caught = false;
+        
+        
      
         $("img").click(function() {
             
-            //?? related to above ^ i tried to make a second var to tie it to this ??
+            //?? related to the var caught problem; i tried to make a second var to tie it to this ??
             var this_caught = true,
                 currentX,
                 currentY,
@@ -351,8 +372,16 @@
                 
                 }
             
+            else {
+                $(".info").css({
+                    visibility: "visible",
+                    opacity: "1"
+                })
+            };
+            
                 console.log("caught is" + caught);  
-            });
+            })
+        
              
             
         });

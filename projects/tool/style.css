@@ -12,18 +12,56 @@ body {
     font-family: 'Londrina Outline', cursive;
 }
 
-.info, .caption {
+.info, .caption, .welcome {
     color:white;
-    mix-blend-mode:soft-light;
+    
+}
+
+.caption {
+    position:absolute;
+    z-index:3;
+    font-size: 2em;
+    
+    mix-blend-mode:overlay;
+    
+    transition: 1s;
+    
+    text-shadow:
+   -1px -1px 0 blue,  
+    1px -1px 0 blue,
+    -1px 1px 0 blue,
+     1px 1px 0 blue;
     filter: url("#turbulence");
     
 }
+
+.info, .welcome {
+    position:fixed;
+    z-index:5;
+    left:0;
+    right:0;
+    margin:auto;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .info {
-    position:absolute;
-    z-index:2;
-    top:20%;
+    width:600px;
+    max-width:80vw;
     
-    animation: rotate 15s linear infinite alternate-reverse;
+    font-size:1.5em;
+    
+    visibility:hidden;
+    opacity:0;
+    
+}
+
+.welcome {
+    width:600px;
+    max-width:80vw;
+    font-size:1.5em;
+    transition:2s;
 }
 
 /*must do this .bg + .bg_wrapper thing so that .bg can rotate animate without showing its edges/white body bg*/
@@ -102,16 +140,6 @@ img:hover {
     left:-10%;
 }
 
-.caption {
-    position:absolute;
-    z-index:3;
-    font-size: 2em;
-    
-    mix-blend-mode:overlay;
-    
-    transition: 1s;
-    
-}
 
 
 /*
