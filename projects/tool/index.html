@@ -91,10 +91,8 @@
         
         
         //trying to randomize start positions of .critters
-    $(document).ready(function(){
             
         var direction = "right",
-            random_speed,
 
             //?? How do I make this var caught specific to EACH img? Right now if i click 1 image it changes the var globally
             caught = false;
@@ -104,7 +102,7 @@
                     visibility: "hidden",
                     opacity: "0"
                 });
-            }, 9000);
+            }, 1000);
         
 
         function getRandomInt(min, max) {
@@ -133,37 +131,133 @@
             //randomize swimming and bouncing animations: using callback instead of setInterval to loop animations (because otherwise when I clearInterval on $("img").click, it would clear ALL the animations on other critters as well, not just the animation on the clicked critter)
            
         //?? This was working before but now neither the speed nor the bounce are randomizing between critters??? Console.log shows that speeds are being randomized but they don't look it??
-               function big_bounce(){
-                   
-                    var random_bounce1 = Math.floor(Math.random() * 200 + 50);
-                   
-                    random_speed = Math.floor(Math.random() * 200 + 100);
-                    console.log("random speed is" + random_speed);
+        
+        var critters = $(".critter");
+        var random_bounces_small = [],
+            random_bounces_big = [],
+            random_speeds = [],
+            critter_counter_big = 0,
+            critter_counter_small = 0,
+            critters_length = critters.length;
+        
+        // create random bounce amounts, add to array
+        for (let i = 0; i < critters.length; i++) {
+            
+            var random_bounce_big = Math.floor(Math.random() * 200 + 50);
+            
+            random_bounces_big.push(random_bounce_big);
+            
+            var random_bounce_small = Math.floor(Math.random() * 100 + 50);
+            
+            random_bounces_small.push(random_bounce_small);
+            
+            var random_speed = Math.floor(Math.random() * 200 + 100);
+            
+            random_speeds.push(random_speed);
+        };
+        
+        
+        
+        function big_bounce(){
+            if (critter_counter_big < critters.length - 1) {
+                $(this).animate(
+                        {top:"+=" + random_bounces_big[critter_counter_big],
+                        left:"+=" + random_speeds[critter_counter_big]}, 600);
 
                     $(this).animate(
-                        {top:"+=" + random_bounce1,
-                        left:"+=" + random_speed}, 600);
+                        {top:"-=" + random_bounces_big[critter_counter_big],
+                        left:"+=" + random_speeds[critter_counter_big]}, 600, small_bounce);
+            
+                    critter_counter_big++;
+               }
+            
+            else {
+                critter_counter_big = 0;
+                
+                $(this).animate(
+                        {top:"+=" + random_bounces_big[critter_counter_big],
+                        left:"+=" + random_speeds[critter_counter_big]}, 600);
 
                     $(this).animate(
-                        {top:"-=" + random_bounce1,
-                        left:"+=" + random_speed}, 600, small_bounce);
-               };
+                        {top:"-=" + random_bounces_big[critter_counter_big],
+                        left:"+=" + random_speeds[critter_counter_big]}, 600, small_bounce);
+            
+                    critter_counter_big++;
+            }
+        };
+            
+            
+        function small_bounce(){
+            if (critter_counter_small < critters.length - 1) {
 
-                function small_bounce(){
-                    
-                    var random_bounce2 = Math.floor(Math.random() * 100 + 50);
+                $(this).animate(
+                    {top:"+=" + random_bounces_small[critter_counter_small],
+                    left:"+=" + random_speeds[critter_counter_small]}, 600);
 
-                    $(this).animate(
-                        {top:"+=" + random_bounce2,
-                        left:"+=" + random_speed}, 600);
+                $(this).animate(
+                    {top:"-=" + random_bounces_small[critter_counter_small],
+                    left:"+=" + random_speeds[critter_counter_small]}, 600, big_bounce);
+                }
+            else {
+                critter_counter_small = 0;
+                
+                $(this).animate(
+                    {top:"+=" + random_bounces_small[critter_counter_small],
+                    left:"+=" + random_speeds[critter_counter_small]}, 600);
 
-                    $(this).animate(
-                        {top:"-=" + random_bounce2,
-                        left:"+=" + random_speed}, 600, big_bounce);
-                };
+                $(this).animate(
+                    {top:"-=" + random_bounces_small[critter_counter_small],
+                    left:"+=" + random_speeds[critter_counter_small]}, 600, big_bounce);
+            }
+        };
                
                 
-            
+//                $(".critter").eq(critter_counter_big).animate(
+//                    {top:"-=" + random_bounces_small[critter_counter_small],
+//                    left:"+=" + random_speeds[critter_counter_small]}, 600, big_bounce);
+                
+                
+//                //??How do I add easing to this so it's not so 走走停停???
+//                $(".critter").each(big_bounce); 
+//
+//                $(".caption").each(big_bounce); 
+//        
+        
+        
+        
+        
+        
+//               function big_bounce(){
+//                   
+//                    var random_bounce1 = Math.floor(Math.random() * 200 + 50);
+//                   
+//                    random_speed = Math.floor(Math.random() * 200 + 100);
+//                    console.log("random speed is" + random_speed);
+//
+//                    $(this).animate(
+//                        {top:"+=" + random_bounce1,
+//                        left:"+=" + random_speed}, 600);
+//
+//                    $(this).animate(
+//                        {top:"-=" + random_bounce1,
+//                        left:"+=" + random_speed}, 600, small_bounce);
+//               };
+//
+//                function small_bounce(){
+//                    
+//                    var random_bounce2 = Math.floor(Math.random() * 100 + 50);
+//
+//                    $(this).animate(
+//                        {top:"+=" + random_bounce2,
+//                        left:"+=" + random_speed}, 600);
+//
+//                    $(this).animate(
+//                        {top:"-=" + random_bounce2,
+//                        left:"+=" + random_speed}, 600, big_bounce);
+//                };
+//               
+//                
+//            
                 //??How do I add easing to this so it's not so 走走停停???
                 $(".critter").each(big_bounce); 
 
@@ -258,62 +352,101 @@
         
         
         //Make image escape cursor
-      $(".critter").mouseover(function() {
+      $(".critter").mouseenter(function() {
+        
           
           console.log("escaping!");
           
           //MUST PUT if statement INSIDE a function for it to check for truth/false on each mouseover, rather than only on page load
-          if (caught == false) {
-          // subtract image width and height from document dimensions if you don't wnat image to escape offscreen
-          var wWidth = $(window).width(),
-              wHeight = $(window).height(),
+          if (caught == false) { 
+              
+            var this_critter_counter_big = $(".critter").index(this);
+              
+            console.log("This critter is #" + this_critter_counter_big);
+              
+              console.log("This critter bounce is" + random_bounces_big[this_critter_counter_big]);
+              
+              // subtract image width and height from document dimensions if you don't wnat image to escape offscreen
+              var wWidth = $(window).width(),
+                  wHeight = $(window).height(),
 
-          //dWidth/2 is maximum value, + 100 is minimum
-              nextX = Math.floor(Math.random() * (wWidth)) + 100,
-              nextY = Math.floor(Math.random() * (wHeight)) + 100;
-            $(this).stop();
+              //dWidth/2 is maximum value, + 100 is minimum
+                  nextX = Math.floor(Math.random() * (wWidth)) + 100,
+                  nextY = Math.floor(Math.random() * (wHeight)) + 100;
               
-            $(this).animate({
-              left: nextX + "px",
-              top: nextY + "px"
-          });
+                $(this).stop();
+
+                $(this).animate({
+                  left: nextX + "px",
+                  top: nextY + "px"
+                });
               
-        
-              //??I can't tell why this happens, but sometimes it does and totally stops the animations on everything, both caption and critter??? Seems like it happens when cursor enters .critter hitbox??: Uncaught TypeError: Cannot set property top of #<Window> which has only a getter
-            
+              
+              if (direction === "right") {
+                        
+                        $(this).animate({
+                            top: "+=" + random_bounces_big[this_critter_counter_big],
+                            left: "+=" + random_speed
+                        }, 600);
+
+                        $(this).animate({
+                            top: "-=" + random_bounces_big[this_critter_counter_big],
+                            left: "+=" + random_speed
+                        }, 600, big_bounce);
+                    } 
+                  
+                    else if (direction === "left") {
+                        $(this).animate({
+                            top: "+=100",
+                            left: "-=" + random_speed
+                        }, 600);
+
+                        $(this).animate({
+                            top: "-=100",
+                            left: "-=" + random_speed
+                        }, 600, big_bounce_reverse);
+                    };
+            }
+              
+              
+          else {
+              
+              
               // want to delay the restarting of bouncing animation so the escaping animation has time to run
               setTimeout(function() {
+                    if (direction === "right") {
+                        
+                        $(this).animate({
+                            top: "+=" + random_bounces_big[this_critter_counter_big],
+                            left: "+=" + random_speed
+                        }, 600);
 
-                if (direction === "right") {
-                    $(this).animate(
-                            {top:"+=100",
-                            left:"+=" + random_speed}, 600);
+                        $(this).animate({
+                            top: "-=" + random_bounces_big[this_critter_counter_big],
+                            left: "+=" + random_speed
+                        }, 600, big_bounce);
+                    } 
+                  
+                    else if (direction === "left") {
+                        $(this).animate({
+                            top: "+=100",
+                            left: "-=" + random_speed
+                        }, 600);
 
-                        $(this).animate(
-                            {top:"-=100",
-                            left:"+=" + random_speed}, 600, big_bounce);
-                }
-
-                else if (direction === "left") {
-                    $(this).animate(
-                            {top:"+=100",
-                            left:"-=" + random_speed}, 600);
-
-                        $(this).animate(
-                            {top:"-=100",
-                            left:"-=" + random_speed}, 600, big_bounce_reverse);
-                };
-        
-            }, 3000);
+                        $(this).animate({
+                            top: "-=100",
+                            left: "-=" + random_speed
+                        }, 600, big_bounce_reverse);
+                    };
+                }, 3000);
               
-              
-        };
-      });
+            };
+               
+          });
+          
         
           
         
-        
-     
         $("img").click(function() {
             
             //?? related to the var caught problem; i tried to make a second var to tie it to this ??
@@ -380,15 +513,9 @@
             };
             
                 console.log("caught is" + caught);  
-            })
+            });
         
-             
-            
-        });
-        
-        
-
-                                  
+                     
           
           
           

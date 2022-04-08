@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>capture and release</title>
+    <link rel="icon" type="image/png" href="&#8779;" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bg_wrapper">
+        <div class="bg"></div>
+    </div>
+    <div class="critter" data-index="0">
+        <img src="img/palau/Jorunna_funebris.jpg" class="funebris">
+    </div><!-- 
+    <div class="critter" data-index="1">
+        <img src="img/palau/fish.jpg" class="funebris">
+    </div> -->
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+    
+        var direction = "right",
+            random_speed;
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        };
+
+        //define function that assigns random starting Y
+        function randomY() {
+            var height = $(window).height();
+            var randomY = getRandomInt(height, 0);
+            $(this).css({
+                top: randomY
+            });
+        };
+
+        //apply randomY function to each instance of .critter and .caption
+        $(".critter").each(randomY);
+
+        var critters = $(".critter");
+        var random_bounces_small = [],
+            random_bounces_big = [],
+            critter_counter_big = 0,
+            critter_counter_small = 0,
+            critters_length = critters.length;
+
+        // create random bounce amounts, add to array
+        for (let i = 0; i < critters.length; i++) {
+            var random_bounce_big = Math.floor(Math.random() * 800 + 50);
+            random_bounces_big.push(random_bounce_big);
+            var random_bounce_small = Math.floor(Math.random() * 100 + 50);
+            random_bounces_small.push(random_bounce_small);
+        };
+
+        function big_bounce() {
+
+                var index = $(this).attr("data-index");
+                console.log("index =" + index);
+            
+                $(this).animate({
+                    top: "+=" + random_bounces_big[index],
+                    left: "+=" + random_speed
+                }, 600);
+
+                $(this).animate({
+                    top: "-=" + random_bounces_big[index],
+                    left: "+=" + random_speed
+                }, 600, small_bounce);
+            
+        };
+
+        function small_bounce() {
+            
+                var index = $(this).attr("data-index");
+                console.log("index =" + index);
+
+                $(this).animate({
+                    top: "+=" + random_bounces_small[index],
+                    left: "+=" + random_speed
+                }, 600);
+
+                $(this).animate({
+                    top: "-=" + random_bounces_small[index],
+                    left: "+=" + random_speed
+                }, 600, big_bounce);
+
+        };
+
+        function resume_animation(e) {
+            if (direction === "right") {
+                e.animate({
+                    top: "+=100",
+                    left: "+=" + random_speed
+                }, 600);
+
+                e.animate({
+                    top: "-=100",
+                    left: "+=" + random_speed
+                }, 600, big_bounce);
+            } else if (direction === "left") {
+                e.animate({
+                    top: "+=100",
+                    left: "-=" + random_speed
+                }, 600);
+
+                e.animate({
+                    top: "-=100",
+                    left: "-=" + random_speed
+                }, 600, big_bounce_reverse);
+            };
+        }
+
+        $(".critter").each(big_bounce);
+
+        // by default, caught is false.
+        var caught = false;
+
+        //Make image escape cursor
+        $(".critter").mouseenter(function() {
+            
+            console.log("escaping!");
+
+            if (caught == false) {
+                var wWidth = $(window).width(),
+                    wHeight = $(window).height(),
+
+                    //dWidth/2 is maximum value, + 100 is minimum
+                    nextX = Math.floor(Math.random() * (wWidth)) + 100,
+                    nextY = Math.floor(Math.random() * (wHeight)) + 100;
+                $(this).stop();
+
+                $(this).animate({
+                    left: nextX + "px",
+                    top: nextY + "px"
+                });
+
+                var current_critter = $(this);
+
+                setTimeout(function() {
+                    console.log("resume");
+                    resume_animation(current_critter);
+                    
+                }, 3000);
+            };
+        });
+
+    </script>
+</body>
+
+</html>
