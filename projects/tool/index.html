@@ -18,12 +18,12 @@
       <div class="bg"></div>
     </div>
       
-      <div class="critter">
+      <div class="critter" data-index="0">
         <img src="img/palau/Jorunna_funebris.jpg" class="funebris">
     </div>
       
       
-      <div class="critter">
+      <div class="critter" data-index="1">
         <img src="img/palau/fish.jpg" class="funebris">
     </div>
       
@@ -93,6 +93,7 @@
         //trying to randomize start positions of .critters
             
         var direction = "right",
+            random_speed,
 
             //?? How do I make this var caught specific to EACH img? Right now if i click 1 image it changes the var globally
             caught = false;
@@ -121,34 +122,30 @@
                 });
            }; 
            
-            //apply randomY function to each instance of .critter and .caption
-            $(".critter").each(randomY);
-            
-             $(".caption").each(randomY);
+        //apply randomY function to each instance of .critter and .caption
+        $(".critter").each(randomY);
+
+         $(".caption").each(randomY);
             
         
             
-            //randomize swimming and bouncing animations: using callback instead of setInterval to loop animations (because otherwise when I clearInterval on $("img").click, it would clear ALL the animations on other critters as well, not just the animation on the clicked critter)
+        //randomize swimming and bouncing animations: using callback instead of setInterval to loop animations (because otherwise when I clearInterval on $("img").click, it would clear ALL the animations on other critters as well, not just the animation on the clicked critter)
            
-        //?? This was working before but now neither the speed nor the bounce are randomizing between critters??? Console.log shows that speeds are being randomized but they don't look it??
+        //Had to use data-index to randomize bounces and speeds, previously console.log was showing that the values were being randomized but the critters weren't actually
         
         var critters = $(".critter");
         var random_bounces_small = [],
             random_bounces_big = [],
             random_speeds = [],
-            critter_counter_big = 0,
-            critter_counter_small = 0,
             critters_length = critters.length;
         
         // create random bounce amounts, add to array
         for (let i = 0; i < critters.length; i++) {
             
             var random_bounce_big = Math.floor(Math.random() * 200 + 50);
-            
             random_bounces_big.push(random_bounce_big);
             
             var random_bounce_small = Math.floor(Math.random() * 100 + 50);
-            
             random_bounces_small.push(random_bounce_small);
             
             var random_speed = Math.floor(Math.random() * 200 + 100);
@@ -159,212 +156,170 @@
         
         
         function big_bounce(){
-            if (critter_counter_big < critters.length - 1) {
-                $(this).animate(
-                        {top:"+=" + random_bounces_big[critter_counter_big],
-                        left:"+=" + random_speeds[critter_counter_big]}, 600);
 
-                    $(this).animate(
-                        {top:"-=" + random_bounces_big[critter_counter_big],
-                        left:"+=" + random_speeds[critter_counter_big]}, 600, small_bounce);
+            var index = $(this).attr("data-index");
+//            console.log("index =" + index);
             
-                    critter_counter_big++;
-               }
-            
-            else {
-                critter_counter_big = 0;
-                
-                $(this).animate(
-                        {top:"+=" + random_bounces_big[critter_counter_big],
-                        left:"+=" + random_speeds[critter_counter_big]}, 600);
+            $(this).animate(
+                {top:"+=" + random_bounces_big[index],
+                    left:"+=" + random_speeds[index]}, 600);
 
-                    $(this).animate(
-                        {top:"-=" + random_bounces_big[critter_counter_big],
-                        left:"+=" + random_speeds[critter_counter_big]}, 600, small_bounce);
-            
-                    critter_counter_big++;
-            }
+            $(this).animate(
+                {top:"-=" + random_bounces_big[index],
+                left:"+=" + random_speeds[index]}, 600, small_bounce);
         };
             
             
         function small_bounce(){
-            if (critter_counter_small < critters.length - 1) {
+            
+            var index = $(this).attr("data-index");
+//            console.log("index =" + index);
 
-                $(this).animate(
-                    {top:"+=" + random_bounces_small[critter_counter_small],
-                    left:"+=" + random_speeds[critter_counter_small]}, 600);
+            $(this).animate({
+                top: "+=" + random_bounces_small[index],
+                left: "+=" + random_speeds[index]
+            }, 600);
 
-                $(this).animate(
-                    {top:"-=" + random_bounces_small[critter_counter_small],
-                    left:"+=" + random_speeds[critter_counter_small]}, 600, big_bounce);
-                }
-            else {
-                critter_counter_small = 0;
-                
-                $(this).animate(
-                    {top:"+=" + random_bounces_small[critter_counter_small],
-                    left:"+=" + random_speeds[critter_counter_small]}, 600);
+            $(this).animate({
+                top: "-=" + random_bounces_small[index],
+                left: "+=" + random_speeds[index]
+            }, 600, big_bounce);
 
-                $(this).animate(
-                    {top:"-=" + random_bounces_small[critter_counter_small],
-                    left:"+=" + random_speeds[critter_counter_small]}, 600, big_bounce);
-            }
         };
                
-                
-//                $(".critter").eq(critter_counter_big).animate(
-//                    {top:"-=" + random_bounces_small[critter_counter_small],
-//                    left:"+=" + random_speeds[critter_counter_small]}, 600, big_bounce);
-                
-                
-//                //??How do I add easing to this so it's not so 走走停停???
-//                $(".critter").each(big_bounce); 
-//
-//                $(".caption").each(big_bounce); 
-//        
+              
+            //??How do I add easing to this so it's not so 走走停停???
+            $(".critter").each(big_bounce); 
+
+//          $(".caption").each(big_bounce); 
+
+
+
+        function big_bounce_reverse(){
+
+            var index = $(this).attr("data-index");
+//            console.log("index =" + index);
+            
+            $(this).animate(
+                {top:"+=" + random_bounces_big[index],
+                left:"-=" + random_speeds[index]}, 600);
+
+            $(this).animate(
+                {top:"-=" + random_bounces_big[index],
+                left:"-=" + random_speeds[index]}, 600, small_bounce_reverse);
+       };
+
+        function small_bounce_reverse(){
+
+            var index = $(this).attr("data-index");
+//                console.log("index =" + index);
+
+                $(this).animate({
+                    top: "+=" + random_bounces_small[index],
+                    left: "-=" + random_speeds[index]
+                }, 600);
+
+                $(this).animate({
+                    top: "-=" + random_bounces_small[index],
+                    left: "-=" + random_speeds[index]
+                }, 600, big_bounce_reverse);
+        };
+               
         
-        
-        
-        
-        
-//               function big_bounce(){
-//                   
-//                    var random_bounce1 = Math.floor(Math.random() * 200 + 50);
-//                   
-//                    random_speed = Math.floor(Math.random() * 200 + 100);
-//                    console.log("random speed is" + random_speed);
-//
-//                    $(this).animate(
-//                        {top:"+=" + random_bounce1,
-//                        left:"+=" + random_speed}, 600);
-//
-//                    $(this).animate(
-//                        {top:"-=" + random_bounce1,
-//                        left:"+=" + random_speed}, 600, small_bounce);
-//               };
-//
-//                function small_bounce(){
-//                    
-//                    var random_bounce2 = Math.floor(Math.random() * 100 + 50);
-//
-//                    $(this).animate(
-//                        {top:"+=" + random_bounce2,
-//                        left:"+=" + random_speed}, 600);
-//
-//                    $(this).animate(
-//                        {top:"-=" + random_bounce2,
-//                        left:"+=" + random_speed}, 600, big_bounce);
-//                };
-//               
-//                
-//            
-                //??How do I add easing to this so it's not so 走走停停???
-                $(".critter").each(big_bounce); 
+        //??Why does the critter bounce back and forth at the boundary that triggers the reverse_bounce (i.e. at offset_left > 300 or width)
+       function check_offset() {
 
-                $(".caption").each(big_bounce); 
-    
-             
-               
-                
-                function big_bounce_reverse(){
-                   
-                     var random_bounce1 = Math.floor(Math.random() * 200 + 50);
+            var offset = $(this).offset();
+            var offset_left = offset.left;
 
-                    $(this).animate(
-                        {top:"+=" + random_bounce1,
-                        left:"-=" + random_speed}, 600);
+            var width = $(".bg_wrapper").width();
 
-                    $(this).animate(
-                        {top:"-=" + random_bounce1,
-                        left:"-=" + random_speed}, 600, small_bounce_reverse);
-               };
+            var index = $(this).attr("data-index");
 
-                function small_bounce_reverse(){
-                    
-                    var random_bounce2 = Math.floor(Math.random() * 100 + 50);
-
-                    $(this).animate(
-                        {top:"+=" + random_bounce2,
-                        left:"-=" + random_speed}, 600);
-
-                    $(this).animate(
-                        {top:"-=" + random_bounce2,
-                        left:"-=" + random_speed}, 600, big_bounce_reverse);
-                };
-               
-         
-           function check_offset() {
-               
-                var offset = $(this).offset();
-                var offset_left = offset.left;
-               
-                var width = $(".bg_wrapper").width();
-               
-               
 //               console.log("offset is" + offset_left);
 //               console.log("window width is" + width);
-               
-                if ((offset_left > width) && (direction === "right")) {
-                    $(this).stop();
-                    
-                    //have to specify a starting animate, can't just do $(this).animate( {}, large_bounce_reverse — for whatever reason that makes everything just go up, no bounce down
-                     $(this).animate(
-                        {top:"+=200",
-                        left:"-=100"}, 600);
 
-                    $(this).animate(
-                        {top:"-=200",
-                        left:"-=100"}, 600, big_bounce_reverse);
-                    
-                    // this doesn't seem to actually set direction to left? direction remains right
-                        direction = "left";
+            if ((offset_left > 300) && (direction === "right")) {
+                $(this).stop();
 
-                }
-               
-               else if ((offset_left < 0) && (direction === "left")) {
-                    $(this).stop();
-                    
-                     $(this).animate(
-                        {top:"+=200",
-                        left:"+=100"}, 600);
+                //have to specify a starting animate, can't just do $(this).animate( {}, large_bounce_reverse — for whatever reason that makes everything just go up, no bounce down
+                $(this).animate({
+                    top: "+=" + random_bounces_small[index],
+                    left: "-=" + random_speeds[index]
+                }, 600);
 
-                    $(this).animate(
-                        {top:"-=200",
-                        left:"+=100"}, 600, big_bounce);
-
-                };
-               
-               console.log("direction is" + direction);
-            };
-            
-            
-            function checking_offset(){
-                $(".critter").each(check_offset);
-                $(".caption").each(check_offset);
+                $(this).animate({
+                    top: "-=" + random_bounces_small[index],
+                    left: "-=" + random_speeds[index]
+                }, 600, big_bounce_reverse);
                 
+                direction = "left";
+
+            }
+
+           else if ((offset_left < 0) && (direction === "left")) {
+
+                $(this).animate({
+                    top: "+=" + random_bounces_small[index],
+                    left: "+=" + random_speeds[index]
+                }, 600);
+
+                $(this).animate({
+                    top: "-=" + random_bounces_small[index],
+                    left: "+=" + random_speeds[index]
+                }, 600, big_bounce);
+               
+               direction = "right";
+
             };
-            
-            
-          //var checking_offset = setInterval(checking_offset, 1000);
            
-    
+          //??the directions don't seem to actually be changing??
+           console.log(index + "direction is" + direction);
+        };
+
+
+        function checking_offset(){
+            $(".critter").each(check_offset);
+//            $(".caption").each(check_offset);
+
+        };
+
+
+      var checking_offset = setInterval(checking_offset, 1000);
+
+        // resume bounce after mouseover
+        function resume_animation(e) {
+            var index = $(this).attr("data-index");
+//            console.log("index =" + index);
+            
+            if (direction === "right") {
+                e.animate({
+                    top:"+=" + random_bounces_big[index],
+                    left:"+=" + random_speeds[index]}, 600);
+
+                e.animate({
+                    top:"-=" + random_bounces_big[index],
+                    left:"+=" + random_speeds[index]}, 600, small_bounce);
+
+            } else if (direction === "left") {
+                e.animate({
+                    top:"+=" + random_bounces_big[index],
+                    left:"-=" + random_speeds[index]}, 600);
+
+                e.animate({
+                    top:"-=" + random_bounces_big[index],
+                    left:"-=" + random_speeds[index]}, 600, small_bounce_reverse);
+            };
+        }
         
-        
-        
-        //Make image escape cursor
+    //?? There seems to be a delay between when console logs "escaping!" and when the critter moves, if at all
+    //Make image escape cursor
       $(".critter").mouseenter(function() {
-        
           
           console.log("escaping!");
           
           //MUST PUT if statement INSIDE a function for it to check for truth/false on each mouseover, rather than only on page load
           if (caught == false) { 
-              
-            var this_critter_counter_big = $(".critter").index(this);
-              
-            console.log("This critter is #" + this_critter_counter_big);
-              
-              console.log("This critter bounce is" + random_bounces_big[this_critter_counter_big]);
               
               // subtract image width and height from document dimensions if you don't wnat image to escape offscreen
               var wWidth = $(window).width(),
@@ -381,70 +336,17 @@
                   top: nextY + "px"
                 });
               
-              
-              if (direction === "right") {
-                        
-                        $(this).animate({
-                            top: "+=" + random_bounces_big[this_critter_counter_big],
-                            left: "+=" + random_speed
-                        }, 600);
+              var current_critter = $(this);
 
-                        $(this).animate({
-                            top: "-=" + random_bounces_big[this_critter_counter_big],
-                            left: "+=" + random_speed
-                        }, 600, big_bounce);
-                    } 
-                  
-                    else if (direction === "left") {
-                        $(this).animate({
-                            top: "+=100",
-                            left: "-=" + random_speed
-                        }, 600);
-
-                        $(this).animate({
-                            top: "-=100",
-                            left: "-=" + random_speed
-                        }, 600, big_bounce_reverse);
-                    };
-            }
-              
-              
-          else {
-              
-              
-              // want to delay the restarting of bouncing animation so the escaping animation has time to run
-              setTimeout(function() {
-                    if (direction === "right") {
-                        
-                        $(this).animate({
-                            top: "+=" + random_bounces_big[this_critter_counter_big],
-                            left: "+=" + random_speed
-                        }, 600);
-
-                        $(this).animate({
-                            top: "-=" + random_bounces_big[this_critter_counter_big],
-                            left: "+=" + random_speed
-                        }, 600, big_bounce);
-                    } 
-                  
-                    else if (direction === "left") {
-                        $(this).animate({
-                            top: "+=100",
-                            left: "-=" + random_speed
-                        }, 600);
-
-                        $(this).animate({
-                            top: "-=100",
-                            left: "-=" + random_speed
-                        }, 600, big_bounce_reverse);
-                    };
-                }, 3000);
-              
+                setTimeout(function() {
+                    console.log("resume");
+                    resume_animation(current_critter);
+                    
+                }, 150);
+           
             };
                
           });
-          
-        
           
         
         $("img").click(function() {
