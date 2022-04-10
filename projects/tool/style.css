@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
+/*
+@font-face {
+  font-family: "Bell";
+  src: url("fonts/BellMTStd-Italic.otf") format("otf");
+}
+
+?? not working with multiple weights from same font family??*/
+@font-face {
+  font-family: "BellBold";
+  src: url("fonts/BellMTPro-BoldItalic.otf") format("otf");
+}
 
 * {
     padding:0;
@@ -6,14 +16,23 @@
 }
 
 body {
-    
     font-size:28px;
-    
-    font-family: 'Londrina Outline', cursive;
+    font-family: 'BellBold', cursive;
+    font-weight: 500;
+    color:white;
 }
 
-.info, .caption, .welcome {
-    color:white;
+/*for some reason the mix-blend-mode needs to be on .marquee, not .welcome, for it to register*/
+.info, .marquee {
+/*
+    text-shadow:
+   -1px -1px 0 rgba(0,212,255,1),
+    1px -1px 0 rgba(72,104,255,1),
+    -1px 1px 0 rgba(39,231,223,1),
+     1px 1px 0 rgba(84,176,221,1);
+*/
+    filter: url("#turbulence_small");
+    mix-blend-mode:overlay;
     
 }
 
@@ -35,34 +54,50 @@ body {
     
 }
 
-.info, .welcome {
+.info {
     position:fixed;
     z-index:5;
     left:0;
     right:0;
     margin:auto;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.info {
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    
+    
     width:600px;
     max-width:80vw;
     
-    font-size:1.5em;
+    font-size:1.25em;
     
     visibility:hidden;
     opacity:0;
     
 }
 
-.welcome {
-    width:600px;
-    max-width:80vw;
-    font-size:1.5em;
-    transition:2s;
+
+/*marquee from https://codepen.io/Knovour/pen/boJNPN*/
+.marquee {
+  position: fixed;
+    top:.5em;
+  width: 100vw;
+  max-width: 100%;
+  height: 2em;
+  overflow-x: hidden;
 }
+
+.track {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 32s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(50%); }
+  to { transform: translateX(-100%); }
+}
+
 
 /*must do this .bg + .bg_wrapper thing so that .bg can rotate animate without showing its edges/white body bg*/
 .bg_wrapper {
@@ -111,6 +146,7 @@ body {
     width:400px;
     height: 400px;
     position:absolute;
+    left:-400px;
     z-index:4;
     display:flex;
     flex-flow: row wrap;
@@ -121,7 +157,7 @@ body {
     animation: swimming 20s linear infinite, bounce 3s linear infinite;
     animation-delay: 5s;
     */
-    transition: 1s;
+    transition: .1s;
     
 }
 
@@ -134,61 +170,3 @@ img {
 img:hover {
     cursor:grab;
 }
-
-
-.funebris {
-    left:-10%;
-}
-
-
-
-/*
-@keyframes swimming {
-    0% {
-        left:-10%;
-    }
-    
-    100% {
-        left:120%;
-    }
-}
-
-
-@keyframes bounce {
-  0%, 50%, 100% {
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  25% {
-    -moz-transform: translateY(-50px);
-    -ms-transform: translateY(-50px);
-    -webkit-transform: translateY(-50px);
-    transform: translateY(-50px);
-  }
-  75% {
-    -moz-transform: translateY(-30px);
-    -ms-transform: translateY(-30px);
-    -webkit-transform: translateY(-30px);
-    transform: translateY(-30px);
-  }
-}
-
-*/
-/*
-
-.displacement {
-    position:absolute;
-    z-index:1;
-    width: 200vw;
-    height: 200vh;
-    top:-100vh;
-    left:-100vw;
-    background: url(img/waves.jpeg);
-    
-    filter: url("#turbulence");
-    mix-blend-mode:multiply;
-    
-}
-*/

@@ -19,28 +19,50 @@
     </div>
       
       <div class="critter" data-index="0">
-        <img src="img/palau/Jorunna_funebris.jpg" class="funebris">
+        <img src="img/palau/Jorunna_funebris.jpg">
     </div>
       
       
       <div class="critter" data-index="1">
-        <img src="img/palau/fish.jpg" class="funebris">
+        <img src="img/palau/fish.jpg">
+    </div>
+      
+      <div class="critter" data-index="2">
+        <img src="img/palau/1.jpg">
+    </div>
+      
+      <div class="critter" data-index="3">
+        <img src="img/palau/2.jpg">
+    </div>
+      
+      <div class="critter" data-index="4">
+        <img src="img/palau/3.jpg">
+    </div>
+      
+      <div class="critter" data-index="5">
+        <img src="img/palau/4.jpg">
+    </div>
+      
+      <div class="critter" data-index="6">
+        <img src="img/palau/5.jpg">
+    </div>
+      
+      <div class="critter" data-index="7">
+        <img src="img/palau/6.jpg">
     </div>
       
       <div class="info">
       If you want to capture another sea critter, you have to release the one you already got!
       </div>
       
-      <div class="welcome">
-        <p>
-            Welcome to aquatic critters appreciation website! This is a place where sea lovers can upload their photos, and where viewers can experience the difficulties of visually capturing tiny, speedy ocean life that the photographers confronted when taking the photos!
-        </p>
-          <p>
-              To view a photo, catch a critter.
-          </p>
-      </div>
+      <div class="marquee">
+          <div class="track">
+            <p class="welcome">&nbsp;Welcome to aquatic critters appreciation website! This is a place where sea lovers can upload their photos, and where viewers can experience the difficulties of visually capturing tiny, speedy ocean life that the photographers confronted when taking the photos! To view a photo, catch a critter.</p>
+          </div>
+        </div>
       
       
+<!--
       <div class="caption">
       tender
       </div>
@@ -61,6 +83,7 @@
       <div class="caption">
       will the photos of these critters outlast their bodies?
       </div>
+-->
       
       
       
@@ -82,6 +105,15 @@
             keyTimes="0;0.5;1" values="0.02 0.06;0.04 0.08;0.02 0.06" repeatCount="indefinite"/>
           </filter>
         </svg>
+      
+        <svg style="position:absolute; z-index:-1; visibility:none; top:0;">
+          <filter id="turbulence_small" x="0" y="0" width="100%" height="100%">
+            <feTurbulence id="sea-filter2" numOctaves="3" seed="2" baseFrequency="0.1 0.005"></feTurbulence>
+            <feDisplacementMap scale="6" in="SourceGraphic"></feDisplacementMap>
+            <animate xlink:href="#sea-filter2" attributeName="baseFrequency" dur="30s" 
+            keyTimes="0;0.5;1" values="0.01 0.04;0.02 0.06;0.01 0.04" repeatCount="indefinite"/>
+          </filter>
+        </svg>
 
       
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -92,18 +124,15 @@
         
         //trying to randomize start positions of .critters
             
-        var direction = "right",
-            random_speed,
-
-            //?? How do I make this var caught specific to EACH img? Right now if i click 1 image it changes the var globally
-            caught = false;
+        var random_speed,
+            global_caught = false;
         
-        setTimeout(function() {
-            $(".welcome").css({
-                    visibility: "hidden",
-                    opacity: "0"
-                });
-            }, 1000);
+//        setTimeout(function() {
+//            $(".welcome").css({
+//                    visibility: "hidden",
+//                    opacity: "0"
+//                });
+//            }, 1000);
         
 
         function getRandomInt(min, max) {
@@ -137,6 +166,8 @@
         var random_bounces_small = [],
             random_bounces_big = [],
             random_speeds = [],
+            caughts = [],
+            directions = [],
             critters_length = critters.length;
         
         // create random bounce amounts, add to array
@@ -151,9 +182,18 @@
             var random_speed = Math.floor(Math.random() * 200 + 100);
             
             random_speeds.push(random_speed);
+            
+            var critter_caught = false;
+            
+            caughts.push(critter_caught);
+            
+            var direction = "right";
+            
+            directions.push(direction);
         };
         
         
+//            console.log(caughts);
         
         function big_bounce(){
 
@@ -239,7 +279,7 @@
 //               console.log("offset is" + offset_left);
 //               console.log("window width is" + width);
 
-            if ((offset_left > 300) && (direction === "right")) {
+            if ((offset_left > 300) && (directions[index] === "right")) {
                 $(this).stop();
 
                 //have to specify a starting animate, can't just do $(this).animate( {}, large_bounce_reverse — for whatever reason that makes everything just go up, no bounce down
@@ -253,11 +293,11 @@
                     left: "-=" + random_speeds[index]
                 }, 600, big_bounce_reverse);
                 
-                direction = "left";
+                directions[index] = "left";
 
             }
 
-           else if ((offset_left < 0) && (direction === "left")) {
+           else if ((offset_left < 0) && (directions[index] === "left")) {
 
                 $(this).animate({
                     top: "+=" + random_bounces_small[index],
@@ -269,12 +309,12 @@
                     left: "+=" + random_speeds[index]
                 }, 600, big_bounce);
                
-               direction = "right";
+               directions[index] = "right";
 
             };
            
           //??the directions don't seem to actually be changing??
-           console.log(index + "direction is" + direction);
+           console.log(index + "direction is" + directions[index]);
         };
 
 
@@ -292,7 +332,7 @@
             var index = $(this).attr("data-index");
 //            console.log("index =" + index);
             
-            if (direction === "right") {
+            if (directions[index] === "right") {
                 e.animate({
                     top:"+=" + random_bounces_big[index],
                     left:"+=" + random_speeds[index]}, 600);
@@ -301,7 +341,7 @@
                     top:"-=" + random_bounces_big[index],
                     left:"+=" + random_speeds[index]}, 600, small_bounce);
 
-            } else if (direction === "left") {
+            } else if (directions[index] === "left") {
                 e.animate({
                     top:"+=" + random_bounces_big[index],
                     left:"-=" + random_speeds[index]}, 600);
@@ -316,10 +356,12 @@
     //Make image escape cursor
       $(".critter").mouseenter(function() {
           
-          console.log("escaping!");
+            var index = $(this).attr("data-index");
+          
+            console.log("escaping!");
           
           //MUST PUT if statement INSIDE a function for it to check for truth/false on each mouseover, rather than only on page load
-          if (caught == false) { 
+          if (caughts[index] == false) { 
               
               // subtract image width and height from document dimensions if you don't wnat image to escape offscreen
               var wWidth = $(window).width(),
@@ -352,8 +394,13 @@
         $("img").click(function() {
             
             //?? related to the var caught problem; i tried to make a second var to tie it to this ??
-            var this_caught = true,
-                currentX,
+            
+            var index = $(this).attr("data-index");
+            
+            //?? says caught is undefined???
+            console.log(caughts[index]);
+            
+            var currentX,
                 currentY,
                 offset;
 
@@ -364,7 +411,8 @@
 //                console.log(currentX);
 //                console.log(currentY);
 
-            if (caught == false) {
+            if ((caughts[index] == false) && (
+            global_caught == false)) {
                 
                 //stop animation on clicked .critter
                 $(this).parent().stop();
@@ -385,11 +433,13 @@
                 var caught_sfx = new Audio("sfx/victory.mp3");
                 caught_sfx.play();
 
-                caught = true;
+                caughts[index] = true;
+                global_caught = true;
+                
                 
             }
             
-            else if ((caught == true) && (this_caught == true)) {
+            else if (caughts[index] == true) {
                 
                 $(this).css({
                     width: "100px",
@@ -403,7 +453,9 @@
                     height: "400px"
                 });
                      
-                caught = false;
+                caughts[index] = false;
+                global_caught = false;
+                
                 
                 }
             
@@ -414,7 +466,7 @@
                 })
             };
             
-                console.log("caught is" + caught);  
+                console.log("caught is" + caughts[index]);  
             });
         
                      
