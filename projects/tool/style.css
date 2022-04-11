@@ -1,13 +1,16 @@
-/*
+
 @font-face {
   font-family: "Bell";
   src: url("fonts/BellMTStd-Italic.otf") format("otf");
+    font-weight:100;
 }
 
+/*
 ?? not working with multiple weights from same font family??*/
 @font-face {
-  font-family: "BellBold";
+  font-family: "Bell";
   src: url("fonts/BellMTPro-BoldItalic.otf") format("otf");
+    font-weight:200;
 }
 
 * {
@@ -17,8 +20,8 @@
 
 body {
     font-size:28px;
-    font-family: 'BellBold', cursive;
-    font-weight: 500;
+    font-family: 'Bell', cursive;
+    font-weight: 100;
     color:white;
 }
 
@@ -68,10 +71,12 @@ body {
     width:600px;
     max-width:80vw;
     
-    font-size:1.25em;
+    font-size:1em;
     
     visibility:hidden;
     opacity:0;
+    
+    transition:1s;
     
 }
 
@@ -114,7 +119,7 @@ body {
     top: -50%;
     left: -50%;
     z-index: -1;
-    background: linear-gradient(0deg, rgba(9,9,121,1) 0%, rgba(72,104,255,1) 6%, rgba(84,176,221,1) 12%, rgba(95,137,255,1) 20%, rgba(28,249,255,1) 27%, rgba(19,66,182,1) 36%, rgba(0,212,255,1) 43%, rgba(0,255,209,1) 48%, rgba(2,3,186,1) 53%, rgba(157,240,255,1) 57%, rgba(136,160,236,1) 63%, rgba(55,45,255,1) 70%, rgba(39,231,223,1) 78%, rgba(24,55,255,1) 91%, rgba(9,9,121,1) 100%);
+    background: linear-gradient(0deg, rgba(9,9,121,1) 0%, rgba(72,104,255,1) 6%, rgba(84,176,221,1) 12%, rgba(95,137,255,1) 20%, rgba(28,249,255,1) 27%, rgba(19,66,182,1) 36%, rgba(0,212,255,1) 43%, rgba(0,255,209,1) 48%, rgba(2,3,186,1) 53%, rgba(157,240,255,1) 57%, rgba(136,160,236,1) 63%, rgba(55,45,255,1) 70%, rgba(39  ,231,223,1) 78%, rgba(24,55,255,1) 91%, rgba(9,9,121,1) 100%);
     background-size:1000vw 1000vh;
 
 /*    animation: rotate 15s linear infinite alternate-reverse, gradient 10s ease infinite;*/
@@ -143,8 +148,8 @@ body {
 
 /*invisible hitbox for jquery mouseenter*/
 .critter {
-    width:400px;
-    height: 400px;
+    width:200px;
+    height: 200px;
     position:absolute;
     left:-400px;
     z-index:4;
@@ -157,7 +162,7 @@ body {
     animation: swimming 20s linear infinite, bounce 3s linear infinite;
     animation-delay: 5s;
     */
-    transition: .1s;
+    transition: .2s;
     
 }
 

@@ -28,27 +28,63 @@
     </div>
       
       <div class="critter" data-index="2">
-        <img src="img/palau/1.jpg">
-    </div>
-      
-      <div class="critter" data-index="3">
         <img src="img/palau/2.jpg">
     </div>
       
-      <div class="critter" data-index="4">
+      <div class="critter" data-index="3">
         <img src="img/palau/3.jpg">
     </div>
       
-      <div class="critter" data-index="5">
+      <div class="critter" data-index="4">
         <img src="img/palau/4.jpg">
     </div>
       
-      <div class="critter" data-index="6">
+      <div class="critter" data-index="5">
         <img src="img/palau/5.jpg">
     </div>
       
-      <div class="critter" data-index="7">
+      <div class="critter" data-index="6">
         <img src="img/palau/6.jpg">
+    </div>
+      
+      <div class="critter" data-index="7">
+        <img src="img/palau/7.jpg">
+    </div>
+      
+      <div class="critter" data-index="8">
+        <img src="img/palau/8.jpg">
+    </div>
+      
+      <div class="critter" data-index="9">
+        <img src="img/palau/9.jpg">
+    </div>
+      
+      <div class="critter" data-index="10">
+        <img src="img/palau/10.jpg">
+    </div>
+      
+      <div class="critter" data-index="11">
+        <img src="img/palau/11.jpg">
+    </div>
+      
+      <div class="critter" data-index="12">
+        <img src="img/palau/12.jpg">
+    </div>
+      
+      <div class="critter" data-index="13">
+        <img src="img/palau/13.jpg">
+    </div>
+      
+      <div class="critter" data-index="14">
+        <img src="img/palau/14.jpg">
+    </div>
+      
+      <div class="critter" data-index="15">
+        <img src="img/palau/15.jpg">
+    </div>
+      
+      <div class="critter" data-index="16">
+        <img src="img/palau/16.jpg">
     </div>
       
       <div class="info">
@@ -187,13 +223,14 @@
             
             caughts.push(critter_caught);
             
+            
             var direction = "right";
             
             directions.push(direction);
         };
         
         
-//            console.log(caughts);
+            console.log(caughts);
         
         function big_bounce(){
 
@@ -202,11 +239,13 @@
             
             $(this).animate(
                 {top:"+=" + random_bounces_big[index],
-                    left:"+=" + random_speeds[index]}, 600);
+                    left:"+=" + random_speeds[index]}, 2100);
 
             $(this).animate(
                 {top:"-=" + random_bounces_big[index],
-                left:"+=" + random_speeds[index]}, 600, small_bounce);
+                left:"+=" + random_speeds[index]}, 2100, small_bounce);
+            
+            console.log("big bounce");
         };
             
             
@@ -218,12 +257,14 @@
             $(this).animate({
                 top: "+=" + random_bounces_small[index],
                 left: "+=" + random_speeds[index]
-            }, 600);
+            }, 2100);
 
             $(this).animate({
                 top: "-=" + random_bounces_small[index],
                 left: "+=" + random_speeds[index]
-            }, 600, big_bounce);
+            }, 2100, big_bounce);
+            
+            console.log("small bounce");
 
         };
                
@@ -242,11 +283,13 @@
             
             $(this).animate(
                 {top:"+=" + random_bounces_big[index],
-                left:"-=" + random_speeds[index]}, 600);
+                left:"-=" + random_speeds[index]}, 2100);
 
             $(this).animate(
                 {top:"-=" + random_bounces_big[index],
-                left:"-=" + random_speeds[index]}, 600, small_bounce_reverse);
+                left:"-=" + random_speeds[index]}, 2100, small_bounce_reverse);
+            
+            console.log("big bounce reverse");
        };
 
         function small_bounce_reverse(){
@@ -257,12 +300,14 @@
                 $(this).animate({
                     top: "+=" + random_bounces_small[index],
                     left: "-=" + random_speeds[index]
-                }, 600);
+                }, 2100);
 
                 $(this).animate({
                     top: "-=" + random_bounces_small[index],
                     left: "-=" + random_speeds[index]
-                }, 600, big_bounce_reverse);
+                }, 2100, big_bounce_reverse);
+            
+            console.log("small bounce reverse");
         };
                
         
@@ -276,38 +321,38 @@
 
             var index = $(this).attr("data-index");
 
-//               console.log("offset is" + offset_left);
+               console.log("offset is" + offset_left);
 //               console.log("window width is" + width);
 
-            if ((offset_left > 300) && (directions[index] === "right")) {
+            if ((offset_left > 500) && (directions[index] == "right") && (caughts[index] == false)) {
                 $(this).stop();
 
                 //have to specify a starting animate, can't just do $(this).animate( {}, large_bounce_reverse — for whatever reason that makes everything just go up, no bounce down
                 $(this).animate({
                     top: "+=" + random_bounces_small[index],
                     left: "-=" + random_speeds[index]
-                }, 600);
+                }, 2100);
 
                 $(this).animate({
                     top: "-=" + random_bounces_small[index],
                     left: "-=" + random_speeds[index]
-                }, 600, big_bounce_reverse);
+                }, 2100, big_bounce_reverse);
                 
                 directions[index] = "left";
 
             }
 
-           else if ((offset_left < 0) && (directions[index] === "left")) {
+           else if ((offset_left < 0) && (directions[index] == "left") && (caughts[index] == false)) {
 
                 $(this).animate({
                     top: "+=" + random_bounces_small[index],
                     left: "+=" + random_speeds[index]
-                }, 600);
+                }, 2100);
 
                 $(this).animate({
                     top: "-=" + random_bounces_small[index],
                     left: "+=" + random_speeds[index]
-                }, 600, big_bounce);
+                }, 2100, big_bounce);
                
                directions[index] = "right";
 
@@ -335,20 +380,20 @@
             if (directions[index] === "right") {
                 e.animate({
                     top:"+=" + random_bounces_big[index],
-                    left:"+=" + random_speeds[index]}, 600);
+                    left:"+=" + random_speeds[index]}, 2100);
 
                 e.animate({
                     top:"-=" + random_bounces_big[index],
-                    left:"+=" + random_speeds[index]}, 600, small_bounce);
+                    left:"+=" + random_speeds[index]}, 2100, small_bounce);
 
             } else if (directions[index] === "left") {
                 e.animate({
                     top:"+=" + random_bounces_big[index],
-                    left:"-=" + random_speeds[index]}, 600);
+                    left:"-=" + random_speeds[index]}, 2100);
 
                 e.animate({
                     top:"-=" + random_bounces_big[index],
-                    left:"-=" + random_speeds[index]}, 600, small_bounce_reverse);
+                    left:"-=" + random_speeds[index]}, 2100, small_bounce_reverse);
             };
         }
         
@@ -393,11 +438,8 @@
         
         $("img").click(function() {
             
-            //?? related to the var caught problem; i tried to make a second var to tie it to this ??
+            var index = $(this).parent().attr("data-index");
             
-            var index = $(this).attr("data-index");
-            
-            //?? says caught is undefined???
             console.log(caughts[index]);
             
             var currentX,
@@ -411,10 +453,11 @@
 //                console.log(currentX);
 //                console.log(currentY);
 
+            //if current critter isn't caught, and no other critter is caught, make current critter large
             if ((caughts[index] == false) && (
             global_caught == false)) {
                 
-                //stop animation on clicked .critter
+                //stop animation on clicked .critter, not img
                 $(this).parent().stop();
 
                 $(this).css({
@@ -439,6 +482,7 @@
                 
             }
             
+            //if current critter has been caught, release it
             else if (caughts[index] == true) {
                 
                 $(this).css({
@@ -453,17 +497,38 @@
                     height: "400px"
                 });
                      
+                var current_critter = $(this).parent();
+
+                //?? Animation does not resume for all critters?? It seems that it doesn't resume for the ones that stop successfully??
+                setTimeout(function() {
+                    console.log("resume");
+                    resume_animation(current_critter);
+                    
+                }, 150);
+                
                 caughts[index] = false;
                 global_caught = false;
                 
                 
                 }
             
+            //display catch and release reqs
             else {
+            
+                //?? How to make type seem like it's enlarging from center, not top-left corner??
                 $(".info").css({
                     visibility: "visible",
-                    opacity: "1"
-                })
+                    opacity: "1",
+                    fontSize: "1.25em"
+                });
+                
+                setTimeout(function() {
+                    $(".info").css({
+                        visibility: "hidden",
+                        opacity: "0",
+                        fontSize: "1em"
+                        });
+                    }, 2500);
             };
             
                 console.log("caught is" + caughts[index]);  
