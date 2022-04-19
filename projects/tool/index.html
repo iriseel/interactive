@@ -15,14 +15,26 @@
   <body>
       
     <div class="bg_wrapper">
-      <div class="bg"></div>
+        
+      <div class="question">
+      What does it mean to capture?
+      What does it mean to capture?
+      What does it mean to capture?
+      </div>
+        
+      <div class="bg">
+        
+        </div>
     </div>
+      
+      <div class="critter welcome" style="z-index:10" data-index="17">
+          <p class="welcome">Welcome!</p>
+      </div>
       
       <div class="critter" data-index="0">
         <img src="img/palau/Jorunna_funebris.jpg">
     </div>
-      
-      
+
       <div class="critter" data-index="1">
         <img src="img/palau/fish.jpg">
     </div>
@@ -151,396 +163,22 @@
           </filter>
         </svg>
 
+        <svg style="position:absolute; z-index:-1; visibility:none; top:0;">
+          <filter id="turbulence_critter" x="0" y="0" width="100%" height="100%">
+            <feTurbulence id="sea-filter3" numOctaves="3" seed="2" baseFrequency="0.1 0.005"></feTurbulence>
+            <feDisplacementMap scale="2" in="SourceGraphic"></feDisplacementMap>
+            <animate xlink:href="#sea-filter3" attributeName="baseFrequency" dur="30s" 
+            keyTimes="0;0.5;1" values="0.02 0.06;0.04 0.08;0.02 0.06" repeatCount="indefinite"/>
+          </filter>
+        </svg>
       
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
       
-    <script type="text/javascript">
-        
-        
-        //trying to randomize start positions of .critters
-            
-        var random_speed,
-            global_caught = false;
-        
-//        setTimeout(function() {
-//            $(".welcome").css({
-//                    visibility: "hidden",
-//                    opacity: "0"
-//                });
-//            }, 1000);
-        
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="js/airtable.browser.js"></script>
+        <script src="js/script.js"></script>
+      
 
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        };
-            
-            
-            //define function that assigns random starting Y
-           function randomY() {
-               var height = $(window).height();
-    
-                var randomY = getRandomInt(height, 0);
-               
-                $(this).css({
-                    top: randomY
-                });
-           }; 
-           
-        //apply randomY function to each instance of .critter and .caption
-        $(".critter").each(randomY);
-
-         $(".caption").each(randomY);
-            
-        
-            
-        //randomize swimming and bouncing animations: using callback instead of setInterval to loop animations (because otherwise when I clearInterval on $("img").click, it would clear ALL the animations on other critters as well, not just the animation on the clicked critter)
-           
-        //Had to use data-index to randomize bounces and speeds, previously console.log was showing that the values were being randomized but the critters weren't actually
-        
-        var critters = $(".critter");
-        var random_bounces_small = [],
-            random_bounces_big = [],
-            random_speeds = [],
-            caughts = [],
-            directions = [],
-            critters_length = critters.length;
-        
-        // create random bounce amounts, add to array
-        for (let i = 0; i < critters.length; i++) {
-            
-            var random_bounce_big = Math.floor(Math.random() * 200 + 50);
-            random_bounces_big.push(random_bounce_big);
-            
-            var random_bounce_small = Math.floor(Math.random() * 100 + 50);
-            random_bounces_small.push(random_bounce_small);
-            
-            var random_speed = Math.floor(Math.random() * 200 + 100);
-            
-            random_speeds.push(random_speed);
-            
-            var critter_caught = false;
-            
-            caughts.push(critter_caught);
-            
-            
-            var direction = "right";
-            
-            directions.push(direction);
-        };
-        
-        
-            console.log(caughts);
-        
-        function big_bounce(){
-
-            var index = $(this).attr("data-index");
-//            console.log("index =" + index);
-            
-            $(this).animate(
-                {top:"+=" + random_bounces_big[index],
-                    left:"+=" + random_speeds[index]}, 2100);
-
-            $(this).animate(
-                {top:"-=" + random_bounces_big[index],
-                left:"+=" + random_speeds[index]}, 2100, small_bounce);
-            
-            console.log("big bounce");
-        };
-            
-            
-        function small_bounce(){
-            
-            var index = $(this).attr("data-index");
-//            console.log("index =" + index);
-
-            $(this).animate({
-                top: "+=" + random_bounces_small[index],
-                left: "+=" + random_speeds[index]
-            }, 2100);
-
-            $(this).animate({
-                top: "-=" + random_bounces_small[index],
-                left: "+=" + random_speeds[index]
-            }, 2100, big_bounce);
-            
-            console.log("small bounce");
-
-        };
-               
-              
-            //??How do I add easing to this so it's not so 走走停停???
-            $(".critter").each(big_bounce); 
-
-//          $(".caption").each(big_bounce); 
-
-
-
-        function big_bounce_reverse(){
-
-            var index = $(this).attr("data-index");
-//            console.log("index =" + index);
-            
-            $(this).animate(
-                {top:"+=" + random_bounces_big[index],
-                left:"-=" + random_speeds[index]}, 2100);
-
-            $(this).animate(
-                {top:"-=" + random_bounces_big[index],
-                left:"-=" + random_speeds[index]}, 2100, small_bounce_reverse);
-            
-            console.log("big bounce reverse");
-       };
-
-        function small_bounce_reverse(){
-
-            var index = $(this).attr("data-index");
-//                console.log("index =" + index);
-
-                $(this).animate({
-                    top: "+=" + random_bounces_small[index],
-                    left: "-=" + random_speeds[index]
-                }, 2100);
-
-                $(this).animate({
-                    top: "-=" + random_bounces_small[index],
-                    left: "-=" + random_speeds[index]
-                }, 2100, big_bounce_reverse);
-            
-            console.log("small bounce reverse");
-        };
-               
-        
-        //??Why does the critter bounce back and forth at the boundary that triggers the reverse_bounce (i.e. at offset_left > 300 or width)
-       function check_offset() {
-
-            var offset = $(this).offset();
-            var offset_left = offset.left;
-
-            var width = $(".bg_wrapper").width();
-
-            var index = $(this).attr("data-index");
-
-               console.log("offset is" + offset_left);
-//               console.log("window width is" + width);
-
-            if ((offset_left > 500) && (directions[index] == "right") && (caughts[index] == false)) {
-                $(this).stop();
-
-                //have to specify a starting animate, can't just do $(this).animate( {}, large_bounce_reverse — for whatever reason that makes everything just go up, no bounce down
-                $(this).animate({
-                    top: "+=" + random_bounces_small[index],
-                    left: "-=" + random_speeds[index]
-                }, 2100);
-
-                $(this).animate({
-                    top: "-=" + random_bounces_small[index],
-                    left: "-=" + random_speeds[index]
-                }, 2100, big_bounce_reverse);
-                
-                directions[index] = "left";
-
-            }
-
-           else if ((offset_left < 0) && (directions[index] == "left") && (caughts[index] == false)) {
-
-                $(this).animate({
-                    top: "+=" + random_bounces_small[index],
-                    left: "+=" + random_speeds[index]
-                }, 2100);
-
-                $(this).animate({
-                    top: "-=" + random_bounces_small[index],
-                    left: "+=" + random_speeds[index]
-                }, 2100, big_bounce);
-               
-               directions[index] = "right";
-
-            };
-           
-          //??the directions don't seem to actually be changing??
-           console.log(index + "direction is" + directions[index]);
-        };
-
-
-        function checking_offset(){
-            $(".critter").each(check_offset);
-//            $(".caption").each(check_offset);
-
-        };
-
-
-      var checking_offset = setInterval(checking_offset, 1000);
-
-        // resume bounce after mouseover
-        function resume_animation(e) {
-            var index = $(this).attr("data-index");
-//            console.log("index =" + index);
-            
-            if (directions[index] === "right") {
-                e.animate({
-                    top:"+=" + random_bounces_big[index],
-                    left:"+=" + random_speeds[index]}, 2100);
-
-                e.animate({
-                    top:"-=" + random_bounces_big[index],
-                    left:"+=" + random_speeds[index]}, 2100, small_bounce);
-
-            } else if (directions[index] === "left") {
-                e.animate({
-                    top:"+=" + random_bounces_big[index],
-                    left:"-=" + random_speeds[index]}, 2100);
-
-                e.animate({
-                    top:"-=" + random_bounces_big[index],
-                    left:"-=" + random_speeds[index]}, 2100, small_bounce_reverse);
-            };
-        }
-        
-    //?? There seems to be a delay between when console logs "escaping!" and when the critter moves, if at all
-    //Make image escape cursor
-      $(".critter").mouseenter(function() {
-          
-            var index = $(this).attr("data-index");
-          
-            console.log("escaping!");
-          
-          //MUST PUT if statement INSIDE a function for it to check for truth/false on each mouseover, rather than only on page load
-          if (caughts[index] == false) { 
-              
-              // subtract image width and height from document dimensions if you don't wnat image to escape offscreen
-              var wWidth = $(window).width(),
-                  wHeight = $(window).height(),
-
-              //dWidth/2 is maximum value, + 100 is minimum
-                  nextX = Math.floor(Math.random() * (wWidth)) + 100,
-                  nextY = Math.floor(Math.random() * (wHeight)) + 100;
-              
-                $(this).stop();
-
-                $(this).animate({
-                  left: nextX + "px",
-                  top: nextY + "px"
-                });
-              
-              
-              //?? some critters don't resume animations after mouseover???
-              var current_critter = $(this);
-
-                setTimeout(function() {
-                    console.log("resume");
-                    resume_animation(current_critter);
-                    
-                }, 150);
-           
-            };
-               
-          });
-          
-        
-        $("img").click(function() {
-            
-            var index = $(this).parent().attr("data-index");
-            
-            console.log(caughts[index]);
-            
-            var currentX,
-                currentY,
-                offset;
-
-            offset = $(this).offset();
-            currentX = offset.left;
-            currentY = offset.top;
-
-//                console.log(currentX);
-//                console.log(currentY);
-
-            //if current critter isn't caught, and no other critter is caught, make current critter large
-            if ((caughts[index] == false) && (
-            global_caught == false)) {
-                
-                //stop animation on clicked .critter, not img
-                $(this).parent().stop();
-
-                $(this).css({
-                    width: "100%",
-                    filter: "blur(0px)"
-                });
-
-                $(this).parent().css({
-                    top: "0vh",
-                    left: "0vw",
-                    width: "100vw",
-                    height: "100vh"
-                });
-
-
-                var caught_sfx = new Audio("sfx/victory.mp3");
-                caught_sfx.play();
-
-                caughts[index] = true;
-                global_caught = true;
-                
-                
-            }
-            
-            //if current critter has been caught, release it
-            else if (caughts[index] == true) {
-                
-                $(this).css({
-                    width: "100px",
-                    filter: "blur(10px)"
-                });
-
-                $(this).parent().css({
-                    top: currentY + "px",
-                    left: currentX + "px",
-                    width: "400px",
-                    height: "400px"
-                });
-                     
-                var current_critter = $(this).parent();
-
-                //?? Animation does not resume for all critters?? It seems that it doesn't resume for the ones that stop successfully??
-                setTimeout(function() {
-                    console.log("resume");
-                    resume_animation(current_critter);
-                    
-                }, 150);
-                
-                caughts[index] = false;
-                global_caught = false;
-                
-                
-                }
-            
-            //display catch and release reqs
-            else {
-            
-                //?? How to make type seem like it's enlarging from center, not top-left corner??
-                $(".info").css({
-                    visibility: "visible",
-                    opacity: "1",
-                    fontSize: "1.25em"
-                });
-                
-                setTimeout(function() {
-                    $(".info").css({
-                        visibility: "hidden",
-                        opacity: "0",
-                        fontSize: "1em"
-                        });
-                    }, 2500);
-            };
-            
-                console.log("caught is" + caughts[index]);  
-            });
-        
-                     
-          
-          
-          
-    </script>
 
   </body>
 </html>
