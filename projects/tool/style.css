@@ -1,20 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Dorsa&display=swap');
 
+/*nice ref for font families: https://www.hacksoft.io/blog/using-multiple-font-files-the-right-way*/
 @font-face {
-  font-family: "Bell";
-  src: url("fonts/BellMTStd-Italic.otf") format("otf");
-    font-weight:100;
+    font-family: "Bell";
+    src: url("fonts/woff/BellMTStd-Regular.woff") format("woff");
+    font-weight:normal;
+    font-style: normal;
 }
 
-/*
-?? not working with multiple weights from same font family??*/
 @font-face {
-  font-family: "Bell";
-  src: url("fonts/BellMTPro-BoldItalic.otf") format("otf");
-    font-weight:200;
+    font-family: "Bell";
+    src: url("fonts/woff/BellMTPro-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
 }
 
+@font-face {
+  font-family: "Bell";
+  src: url("fonts/woff/BellMTPro-Italic.woff") format("woff");
+    font-weight:normal;
+    font-style: italic;
+}
 
+@font-face {
+  font-family: "Bell";
+  src: url("fonts/woff/BellMTPro-BoldItalic.woff") format("woff");
+    font-weight:bold;
+    font-style: italic;
+}
 
 * {
     padding:0;
@@ -24,7 +37,8 @@
 body {
     font-size:28px;
     font-family: 'Bell', cursive;
-    font-weight: 100;
+    font-weight: normal;
+    font-style:italic;
     color:white;
 }
 
@@ -61,7 +75,11 @@ body {
 }
 
 .question {
-    font-family: 'Dorsa', cursive;
+/*    font-family: 'Dorsa', cursive;*/
+    font-family: 'Bell', cursive;
+    font-weight: normal;
+    font-style:italic;
+    
     transform:scale(1,2.5);
     
     position:absolute;
@@ -170,8 +188,10 @@ body {
 
 /*invisible hitbox for jquery mouseenter*/
 .critter {
+/*
     width:200px;
     height: 200px;
+*/
     position:absolute;
 /*    !! THIS SHOULD NORMALLY BE -!! LIKE -400px!!!!*/
     left:200px;
@@ -180,17 +200,16 @@ body {
     flex-flow: row wrap;
     justify-content: center;
     align-content: center;
+    padding:10px;
     
-    transition: .2s;
-}
-
-/*make welcome critter escape slower on mouseover so easier to catch*/
-.critter.welcome {
-    transition: 2s;
+    transition: 1s;
+    
+    border:white 1px solid;
 }
 
 img {
-    width:100px;
+    width:50%;
+    height:auto;
     transition: 1s;
 /*    filter:blur(10px);*/
 }
@@ -199,11 +218,11 @@ img:hover {
     cursor:grab;
 }
 
-/*??Why doesn't this work???*/
-img:nth-of-type(2n) {
-  clip-path: ellipse(40% 65% at 50% 50%);
+/*styling different masks*/
+.critter:nth-of-type(2n) img {
+  clip-path: ellipse(50% 30% at 50% 50%);
 }
 
-img:nth-of-type(3n) {
-  clip-path: ellipse(40% 65% at 50% 50%);
+.critter:nth-of-type(3n) img {
+  clip-path: ellipse(20% 50% at 50% 50%);
 }
