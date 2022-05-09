@@ -73,7 +73,8 @@ var data_index = 13,
             100,
             100,
             100,
-            100];
+            100],
+    movements = [];
 
 // showRows is what puts the content onto the HTML page
 //again, putting setup_critters into showRows to make it a callback
@@ -95,6 +96,7 @@ function showRows(setup_critters) {
             //create div with class .critter and data-index
             const critter = document.createElement("div");
             critter.classList.add("critter");
+            critter.classList.add("hitbox");
             critter.dataset.index = data_index;
             
             
@@ -129,6 +131,13 @@ function showRows(setup_critters) {
             
             //insert the image into div .img_frame, not just at end of document (as document.body)
             img_frame.appendChild(image);
+            
+//            ??THIS ISN't WOKRING??
+//            
+//            var movement = row.fields.movement[0];
+//             movements.push(movement);
+//            
+//            console.log(movements);
             
             
             
@@ -235,32 +244,33 @@ function setup_critters() {
         
         
         //special settings for welcome critter, which has data-index = 0 ... and then for the .texts critters ... there has to be a better way to do this. .... PLEASE
+        //don't need to set random_speeds values for .texts just because the animations are only applied onto .hitbox
         random_blurs[0] = 0;
         random_opacities[0] = 1;
         random_blurs[1] = 2;
-        random_opacities[1] = .7;
+        random_opacities[1] = 1;
         random_blurs[2] = 1;
-        random_opacities[2] = .4;
+        random_opacities[2] = 1;
         random_blurs[3] = 2;
-        random_opacities[3] = .6;
+        random_opacities[3] = 1;
         random_blurs[4] = 1;
-        random_opacities[4] = .8;
+        random_opacities[4] = 1;
         random_blurs[5] = 2;
-        random_opacities[5] = .7;
+        random_opacities[5] = 1;
         random_blurs[6] = 1;
-        random_opacities[6] = .4;
+        random_opacities[6] = 1;
         random_blurs[7] = 2;
-        random_opacities[7] = .6;
+        random_opacities[7] = 1;
         random_blurs[8] = 1;
-        random_opacities[8] = .8;
+        random_opacities[8] = 1;
         random_blurs[9] = 2;
-        random_opacities[9] = .7;
+        random_opacities[9] = 1;
         random_blurs[10] = 1;
-        random_opacities[10] = .4;
+        random_opacities[10] = 1;
         random_blurs[11] = 2;
-        random_opacities[11] = .6;
+        random_opacities[11] = 1;
         random_blurs[12] = 1;
-        random_opacities[12] = .8;
+        random_opacities[12] = 1;
         
     };
 
@@ -269,26 +279,25 @@ function setup_critters() {
     //All these .each functions are calling functions, such as randomY(), which can be defined outside of setup_critters(). The functions are defined further down.
     
     
-    $(".critter").each(set_transitions);
+    $(".critter").each(set_transitions); $(".texts").each(set_transitions);
     $(".info").each(set_transitions);
-    $(".texts").each(set_transitions);
     
     //apply randomY function to each instance of .critter
-    $(".critter").each(randomize_position);
-    
+    $(".critter").each(randomize_position); 
     $(".critter").each(randomize_opacity);
     
-    $(".critter").each(randomize_blur);
+    //do NOT set blur for .texts as that totally screws up the positioning for some reason — even setting blur as 0 fucks it up
+    $(".hitbox").each(randomize_blur);
     
-    $(".critter").each(check_offset);
+    $(".hitbox").each(check_offset);
     
     //console.log("set up success!!!!");
     
     console.log("sizes are" + sizes);
     
     //?? There seems to be a delay between when console logs "escaping!" and when the critter moves, if at all
-    //Make image escape cursor when hitbox .critter is mouseentered. Use mouseenter instead of mouseover, as mouseover fires multiple times when you hover over a .critter, rather than just once
-    $(".critter").mouseenter(function() {
+    //Make image escape cursor when .hitbox is mouseentered. Use mouseenter instead of mouseover, as mouseover fires multiple times when you hover over a .hitbox, rather than just once
+    $(".hitbox").mouseenter(function() {
 
         clearTimeout(myTimeout);
         var index = $(this).attr("data-index");
@@ -335,7 +344,6 @@ function setup_critters() {
         
         //this is critical to have, otherwise resume_animation will be called after mouseenter even if the critter photo has been clicked (i.e. opened/enlarged)
         else if (caughts[index] == true) {
-            
             clearTimeout(myTimeout);
         };
 
@@ -490,8 +498,6 @@ function small_bounce_left(){
     
 };
 
-
-//??Why does the critter bounce back and forth at the boundary that triggers the reverse_bounce (i.e. at offset_left > 800 or width)
 function check_offset() {
     
     var offset = $(this).offset();
@@ -583,7 +589,7 @@ function click_critter(e) {
         critter_height,
         critter_width;
     
-    //find position of .critter parent of $(this) — which is either img or .texts — relative to its own parent (.bg_wrapper)
+    //find position of .hitbox parent of $(this) — which is either img or .texts — relative to its own parent (.bg_wrapper).
     currentXY = $(this).parents(".critter").position();
     currentX = currentXY.left;
     currentY = currentXY.top;
@@ -599,25 +605,35 @@ function click_critter(e) {
     if ((caughts[index] == false) && (
     global_caught == false)) {
 
-        //stop animation on clicked .critter, not img. Gotta use true to clear queue of callback functions, or else the animation just keeps running. But clearqueue doesn't seem to work on everything, hence why I set up a clear Timeout elsewhere for resume_animation
-        $(this).parents(".critter").stop(true);
-
         if ($(this).hasClass("texts")) {
-            $(this).css({
-                width: "500px"
-            });
             
-            $(this).parents(".critter").css({
-               position: "fixed",
-                left: "0vw",
+             if ($(this).hasClass("welcome")) {
+                 $(this).css({
+                    display: "block"
+                 });
+             };
+            
+            $(this).css({
+                width: "500px",
+                position: "fixed",
                 //get it to vertically center
-                top: "calc(50vh - " + critter_height + "px)"
+                left: "0",
+                right: "0",
+                top: "50%",
+                transform: "translateY(-50%)",
+                margin: "auto",
+                transition: "width 1s"
+                
+                
             });
             
         }
         
         //if img
         else {
+            
+            //stop animation on clicked .hitbox, not img. Gotta use true to clear queue of callback functions, or else the animation just keeps running. But clearqueue doesn't seem to work on everything, hence why I set up a clear Timeout elsewhere for resume_animation
+            $(this).parents(".hitbox").stop(true);
             $(this).parents(".img_frame").css({
                 width: "100%"
             });
@@ -626,24 +642,19 @@ function click_critter(e) {
            $(this).prev(".img_name") .css({
                 display: "inline"
            });
-            
-            //??these left and top values are a mess
-            $(this).parents(".critter").css({
-                left: "calc(" + currentX + "px + " + critter_width/2 + "px)",
-                top: "calc(" + currentY + "px - " + critter_height/2 + "px)"
+            $(this).parents(".hitbox").css({
+                width: "100vw",
+                height: "auto",
+                filter: "blur(0px)",
+                opacity: "1",
+                left: "calc(" + currentX + "px - " + critter_width + "px)",
+                top: "calc(" + currentY + "px - " + critter_height + "px)"
+                
+                //?? How to write this filter properly??
+                //filter: url("#turbulence_critter");
             });
 
-        }
-
-        $(this).parents(".critter").css({
-//            background: "blue"
-            width: "100vw",
-            height: "auto",
-            filter: "blur(0px)",
-            opacity: "1"
-            //?? How to write this filter properly??
-            //filter: url("#turbulence_critter");
-        });
+        };
 
         var caught_sfx = new Audio("sfx/bubbles.wav");
         caught_sfx.play();
@@ -658,49 +669,47 @@ function click_critter(e) {
 
         //if text is clicked
         if ($(this).hasClass("texts")) {
+            
             $(this).css({
-                width: "200px"
+                width: "300px",
+                position:"relative",
+                top: "0",
+                left: "0",
+                transform: "translateY(0%)"
+        
             });
             
-             $(this).parents(".critter").css({
-                width: "400px",
-                height: "auto"
-            });
         }
         
         //if img is clicked
         else {
-            console.log(index + "THIS SIZE IS" + sizes[index]);
             $(this).parents(".img_frame").css({
-                width: "50%"
+                width: "75%"
             });
             
            $(this).prev(".img_name") .css({
                 display: "none"
            });
-            $(this).parents(".critter").css({
+            $(this).parents(".hitbox").css({
                 width: sizes[index],
-                height: sizes[index]
+                height: sizes[index],
+                position: "absolute",
+                top: currentY,
+                left: currentX,
+                opacity: random_opacities[index],
+                "filter": "blur("+random_blurs[index]+"px)"
             });
+            
+            var current_critter = $(this).parents(".hitbox");
+
+            //call animation to resume!!
+            setTimeout(function() {
+                resume_animation(current_critter);
+
+            }, 1200);
         };
+           
         
-        
-        $(this).parents(".critter").css({
-            position: "absolute",
-            top: currentY,
-            left: currentX,
-            opacity: random_opacities[index],
-            "filter": "blur("+random_blurs[index]+"px)"
-        });    
-        
-        var current_critter = $(this).parents(".critter");
-
-        //call animation to resume!!
-        setTimeout(function() {
-//            console.log("resume");
-            resume_animation(current_critter);
-
-        }, 1200);
 
         caughts[index] = false;
         global_caught = false;
@@ -724,7 +733,7 @@ function click_critter(e) {
                 opacity: "0",
                 fontSize: "1em"
                 });
-            }, 2500);
+            }, 3500);
     };
 
 //        console.log(index + "click critter caught is" + caughts[index]);  

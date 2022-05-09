@@ -217,3 +217,37 @@ function big_bounce(){
             };
                
 */         
+
+
+function setup_critters() {
+        
+        
+        //special settings for welcome critter, which has data-index = 0 ... and then for the .texts critters ... there has to be a better way to do this. .... PLEASE
+        random_blurs[0] = 0;
+        random_opacities[0] = 1;
+        random_blurs[1] = 2;
+        random_opacities[1] = .7;
+        random_blurs[2] = 1;
+        random_opacities[2] = .4;
+        random_blurs[3] = 2;
+        random_opacities[3] = .6;
+        random_blurs[4] = 1;
+        random_opacities[4] = .8;
+        random_blurs[5] = 2;
+        random_opacities[5] = .7;
+        random_blurs[6] = 1;
+        random_opacities[6] = .4;
+        random_blurs[7] = 2;
+        random_opacities[7] = .6;
+        random_blurs[8] = 1;
+        random_opacities[8] = .8;
+        random_blurs[9] = 2;
+        random_opacities[9] = .7;
+        random_blurs[10] = 1;
+        random_opacities[10] = .4;
+        random_blurs[11] = 2;
+        random_opacities[11] = .6;
+        random_blurs[12] = 1;
+        random_opacities[12] = .8;
+        
+    };

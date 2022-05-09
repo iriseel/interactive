@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>capture and release</title>
-    <link rel="icon" type="image/png" href="img/palau/2.jpg"/>
+    <link rel="icon" type="image/png" href="img/icon_gradient.png"/>
  
       
     <link rel="stylesheet" href="style.css">
@@ -17,13 +17,16 @@
     <div class="bg_wrapper">
         
         <!--   place texts within bg_wrapper so  that when they bounce beyond the boundaries of bg_wrapper they don't add white space (i.e. they are controlled by .bg_wrapper's overflow:hidden)    -->
-         <div class="critter welcome" data-index="0">
-                  <div class="texts text_0">
-                    <p class="welcome">Welcome!</p>
-                  </div>
-              </div>
+        
+     <div class="critter welcome hitbox" data-index="0">
+          <div class="texts text_0">
+            <p class="welcome">Welcome!</p>
+          </div>
+      </div>
+        
+    <div class="texts_container_big">
       
-      
+            <div class="block">
         <div class="critter" data-index="1">
         <div class="texts text_1">
             <p>
@@ -31,7 +34,9 @@
             </p>
         </div>
         </div>
-        
+            </div>
+            
+            <div class="block">
         <div class="critter" data-index="2">
         <div class="texts text_2">
             <p>
@@ -39,7 +44,9 @@
             </p>
         </div>
         </div>
-        
+            </div>
+            
+            <div class="block">
         <div class="critter" data-index="3">
         <div class="texts text_3">
             <p>
@@ -47,7 +54,9 @@
             </p>
         </div>
         </div>
-        
+            </div>
+            
+            <div class="block">
         <div class="critter" data-index="4">
         <div class="texts text_4">
             <p>
@@ -55,7 +64,9 @@
             </p>
         </div>
         </div>
-        
+            </div>
+            
+            <div class="block">
         <div class="critter" data-index="5">
             <div class="texts text_5">
             <p>
@@ -63,8 +74,9 @@
             </p>
             </div>
         </div>
-        
-      
+            </div>
+            
+            <div class="block">
         <div class="critter" data-index="6">
             <div class="texts text_6">
                 <p>
@@ -72,8 +84,10 @@
                 </p>
             </div>
         </div>
-        
-        
+            </div>
+            
+    
+          <div class="block">
         <div class="critter" data-index="7">
             <div class="texts text_7">
                 <p>
@@ -81,7 +95,9 @@
                 </p>
             </div>
         </div>
-        
+          </div>
+          
+          <div class="block">
         <div class="critter" data-index="8">
             <div class="texts text_8">
                 <p>
@@ -89,7 +105,9 @@
                 </p>
             </div>
         </div>
-        
+          </div>
+          
+          <div class="block">
         <div class="critter" data-index="9">
             <div class="texts text_9">
                 <p>
@@ -97,7 +115,9 @@
                 </p>
             </div>
         </div>
-        
+          </div>
+          
+          <div class="block">
         <div class="critter" data-index="10">
             <div class="texts text_10">
                 <p>
@@ -105,7 +125,9 @@
                 </p>
             </div>
         </div>
-        
+          </div>
+          
+          <div class="block">
         <div class="critter" data-index="11">
             <div class="texts text_11">
                 <p>
@@ -113,7 +135,9 @@
                 </p>
             </div>
         </div>
-        
+          </div>
+          
+          <div class="block">
         <div class="critter" data-index="12">
             <div class="texts text_12">
                 <p>
@@ -121,76 +145,9 @@
                 </p>
             </div>
         </div>
-      
-      <!--
-      <div class="critter" data-index="0">
-        <img src="img/palau/Jorunna_funebris.jpg">
-    </div>
-
-      <div class="critter" data-index="1">
-        <img src="img/palau/fish.jpg">
-    </div>
-      
-      <div class="critter" data-index="2">
-        <img src="img/palau/2.jpg">
-    </div>
-      
-      <div class="critter" data-index="3">
-        <img src="img/palau/3.jpg">
-    </div>
-      
-      <div class="critter" data-index="4">
-        <img src="img/palau/4.jpg">
-    </div>
-      
-      <div class="critter" data-index="5">
-        <img src="img/palau/5.jpg">
-    </div>
-      
-      <div class="critter" data-index="6">
-        <img src="img/palau/6.jpg">
-    </div>
-      
-      <div class="critter" data-index="7">
-        <img src="img/palau/7.jpg">
-    </div>
-      
-      <div class="critter" data-index="8">
-        <img src="img/palau/8.jpg">
-    </div>
-      
-      <div class="critter" data-index="9">
-        <img src="img/palau/9.jpg">
-    </div>
-      
-      <div class="critter" data-index="10">
-        <img src="img/palau/10.jpg">
-    </div>
-      
-      <div class="critter" data-index="11">
-        <img src="img/palau/11.jpg">
-    </div>
-      
-      <div class="critter" data-index="12">
-        <img src="img/palau/12.jpg">
-    </div>
-      
-      <div class="critter" data-index="13">
-        <img src="img/palau/13.jpg">
-    </div>
-      
-      <div class="critter" data-index="14">
-        <img src="img/palau/14.jpg">
-    </div>
-      
-      <div class="critter" data-index="15">
-        <img src="img/palau/15.jpg">
-    </div>
-      
-      <div class="critter" data-index="16">
-        <img src="img/palau/16.jpg">
-    </div>
--->
+          </div>
+        
+    </div>    
       
       <div class="info">
       If you want to capture another sea critter, you have to release the one you already got!
@@ -200,7 +157,7 @@
     </div>
       
       <div class="submit">
-          &#128032;
+          <img src="img/icon_gradient.png">
         <p>
             The marine creatures pictured here hail from Palau. If you have a Palauan pal pic of your own you'd like to share, submit <a href="https://airtable.com/shrnlXQxY5ZGoIPgZ" target="_blank">here</a>.
         </p>
@@ -209,6 +166,9 @@
 
           </p>
       </div>
+      
+      
+        
 
       
       
@@ -243,7 +203,6 @@
       will the photos of these critters outlast their bodies?
       </div>
 -->
-      
       
       
     

@@ -32,6 +32,8 @@
 * {
     padding:0;
     margin:0;
+    box-sizing: border-box;
+    transform-origin: center center;
 }
 
 body {
@@ -40,58 +42,68 @@ body {
     font-weight: normal;
     font-style:normal;
     color:white;
-    line-height:1.1em;
+    line-height:1.2em;
 
 }
 
-a {
-    color: rgba(72,104,255,1);
+
+a, a:link {
+    color: rgba(157,240,255,1);
     font-style:italic;
+    
+/*
+    background: -webkit-linear-gradient(45deg, rgba(9,9,121,1) 0%, rgba(0,255,209,1) 20%, rgba(157,240,255,1) 25%, rgba(55,45,255,1) 30%, rgba(0,255,209,1) 35%, rgba(136,160,236,1) 65%, rgba(39,231,223,1) 78%,  rgba(25, 135, 0, 1) 86%, rgba(24,55,255,1) 91%, rgba(9,9,121,1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+*/
 }
 
-/*for some reason the mix-blend-mode needs to be on .marquee, not .welcome, for it to register*/
-.info, .marquee {
-/*
-    text-shadow:
-   -1px -1px 0 rgba(0,212,255,1),
-    1px -1px 0 rgba(72,104,255,1),
-    -1px 1px 0 rgba(39,231,223,1),
-     1px 1px 0 rgba(84,176,221,1);
+a:visited {
+  color: rgba(55,45,255,1);
+}
 
-    filter: url("#turbulence_small");
-    mix-blend-mode:overlay;
- */   
+a:hover {
+  color:rgba(160,50,200,1);
+}
+
+a:active {
+  color: rgba(0,255,209,1);
 }
 
 .submit {
     position:fixed;
     z-index:6;
     left:0;
-    top:0;
+    top:-.5em;
     margin:1em;
 }
 
 .submit p {
     font-size:.8em;
     opacity: 0;
-    display:none;
+/*    had to use this dumb height and width method bc display ignores transitions*/
+    height:0;
+    width:0;
     visibility:hidden;
-    mix-blend-mode:exclusion;
 }
 
-.submit:hover {
-    cursor:pointer;
-}
 
-/*??How to make it so that this is triggered only when hovering over fish emoji, and not when hovering over p??*/
 .submit:hover p {
     opacity:1;
+    height:auto;
+    width:auto;
     visibility:visible;
-    display:inline-block;
+    transition:.5s;
 }
 
-.submit:hover p:first-child {
+.submit:hover p:first-of-type {
     display:inline;
+}
+
+.submit img {
+    width:1.5em;
+    display:inline;
+    vertical-align: text-bottom;
 }
 
 .info {
@@ -104,24 +116,75 @@ a {
       -ms-transform: translateY(-50%);
       transform: translateY(-50%);
     
-    width:600px;
+    width:670px;
     max-width:80vw;
     
     font-size:1em;
+    line-height:1.25em;
     
     visibility:hidden;
     opacity:0;
     
+    background-color:#1900D6;
+    
+    border:#00FF99 2px solid;
+    border-radius:20px;
+    padding:20px;
+    
+/*    ??not working??*/
+    background-blend-mode:overlay;
+    
 }
 
-/*??z-index of texts is higher than .critters, so why do it appear below??*/
+
+.welcome {
+/*    transition: width 1s, height 0s;*/
+}
+
+.welcome .texts {
+    background: rgba(55,45,255,.5);
+/*    ??not working??*/
+    background-blend-mode:difference;
+    border:#00FF99 1px solid;
+}
+
+.texts_container_big {
+    position:absolute;
+    top:0;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    
+    display:flex;
+    flex-flow: row wrap;
+    align-content: center;
+    
+    /*set z-index for texts here, not in .texts — z-indexes only layer over each other within shared stacking levels (children in different parents don't affect each other)*/
+    z-index:4;
+    
+    /*  Setting z-index:4 on .texts_container_bg finally makes .texts above images, but now because the .texts_container_bg is covering the entire screen, the images no longer react. So must set pointer-events to none*/
+    pointer-events: none;
+}
+
+
+.texts_container_big .block {
+/*    border:10px red solid;*/
+    width:33.333%;
+    height:25%;
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    
+}
+
 .texts {
     font-family: 'Bell', cursive;
     font-weight: normal;
     font-style:normal;
     
-    position:absolute;
-    z-index:4;
+    position:relative;
     
     font-size:1em;
     
@@ -131,16 +194,19 @@ a {
     align-content: center;
     
     padding:20px;
-    width:600px;
+    margin:0px 20px;
+    width:100%;
     height:auto;
     overflow:hidden;
     border:white 1px solid;
     border-radius:20px;
+    
+    /* set pointer-events to happen on .texts  */
+    pointer-events:all;
 }
 
-
 /*invisible hitbox for jquery mouseenter*/
-.critter {
+.hitbox {
     position:absolute;
     z-index:2;
     display:flex;
@@ -152,17 +218,15 @@ a {
 /*    border:white 1px solid;*/
 }
 
+.critter {
+}
+
 /*must be position relative so img_name is positioned based on image_frame, not critter*/
 .img_frame {
     position:relative;
     pointer-events: none;
     width:75%;
     height:auto;
-    
-/*
-    z-index:3;
-    background-color:pink;
-*/
 }
 
 .img_frame * {
@@ -172,18 +236,17 @@ a {
 img {
     width:100%;
     height:auto;
-    transition: 1s;
 }
 
 img:hover, .texts:hover {
-    cursor:grab;
+    cursor:pointer;
 }
 
 .img_name {
     position:absolute;
     z-index:3;
     top:.5em;
-    right:.5em;
+    left:.5em;
     background: -webkit-linear-gradient(45deg, rgba(9,9,121,1) 0%, rgba(72,104,255,1) 6%,  rgba(0, 110, 94, 1) 12%, rgba(84,176,221,1) 18%, rgba(95,137,255,1) 24%, rgba(28,249,255,1) 30%, rgba(19,66,182,1) 36%,  rgba(0, 168, 108, 1) 40%, rgba(0,212,255,1) 46%, rgba(0,255,209,1) 50%, rgba(2,3,186,1) 55%, rgba(157,240,255,1) 59%, rgba(136,160,236,1) 65%, rgba(55,45,255,1) 71%, rgba(39,231,223,1) 78%,  rgba(25, 135, 0, 1) 86%, rgba(24,55,255,1) 91%, rgba(9,9,121,1) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -246,73 +309,4 @@ img:hover, .texts:hover {
 	100% {
 		background-position: 0vw 400vh;
 	}
-}
-
-
-
-
-
-/*UNUSEd*/
-
-
-/*marquee from https://codepen.io/Knovour/pen/boJNPN*/
-.marquee {
-  position: fixed;
-    top:.5em;
-  width: 100vw;
-  max-width: 100%;
-  height: 2em;
-  overflow-x: hidden;
-}
-
-.track {
-  position: absolute;
-  white-space: nowrap;
-  will-change: transform;
-  animation: marquee 32s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(50%); }
-  to { transform: translateX(-100%); }
-}
-
-.caption {
-    position:absolute;
-    z-index:3;
-    font-size: 20em;
-    
-    mix-blend-mode:overlay;
-    
-    transition: 1s;
-    
-    text-shadow:
-   -1px -1px 0 blue,  
-    1px -1px 0 blue,
-    -1px 1px 0 blue,
-     1px 1px 0 blue;
-/*    filter: url("#turbulence");*/
-    filter:blur(1px);
-}
-
-.question {
-/*    font-family: 'Dorsa', cursive;*/
-    font-family: 'Bell', cursive;
-    font-weight: normal;
-    font-style:italic;
-    
-    transform:scale(1,2.5);
-    
-    position:absolute;
-    z-index:1;
-    top:.5em;
-    left:-.05em;
-    font-size: 20em;
-    
-    mix-blend-mode:overlay;
-    
-    transition: 1s;
-/*    filter: url("#turbulence");*/
-    
-    opacity:.1;
 }
