@@ -34,6 +34,7 @@
     margin:0;
     box-sizing: border-box;
     transform-origin: center center;
+    transition:0s;
 }
 
 body {
@@ -165,6 +166,7 @@ a:active {
     
     /*  Setting z-index:4 on .texts_container_bg finally makes .texts above images, but now because the .texts_container_bg is covering the entire screen, the images no longer react. So must set pointer-events to none*/
     pointer-events: none;
+
 }
 
 
@@ -203,6 +205,10 @@ a:active {
     
     /* set pointer-events to happen on .texts  */
     pointer-events:all;
+    
+        
+/*    have .texts be invisible on page load*/
+    opacity:0;
 }
 
 /*invisible hitbox for jquery mouseenter*/

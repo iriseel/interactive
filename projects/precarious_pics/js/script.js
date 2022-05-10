@@ -278,7 +278,16 @@ function setup_critters() {
     
     //All these .each functions are calling functions, such as randomY(), which can be defined outside of setup_critters(). The functions are defined further down.
     
-    
+//    have .texts fade in after a pause
+    texts_fadein = setTimeout(function() {
+        
+   $(".texts").each(function() {
+       
+       $(this).css({
+            opacity: "1"
+            });
+        });
+    }, 6000);
     $(".critter").each(set_transitions); $(".texts").each(set_transitions);
     $(".info").each(set_transitions);
     
@@ -609,7 +618,8 @@ function click_critter(e) {
             
              if ($(this).hasClass("welcome")) {
                  $(this).css({
-                    display: "block"
+                    display: "block",
+                     transition: "1s"
                  });
              };
             
