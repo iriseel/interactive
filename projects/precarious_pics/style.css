@@ -166,6 +166,8 @@ a:active {
     
     /*  Setting z-index:4 on .texts_container_bg finally makes .texts above images, but now because the .texts_container_bg is covering the entire screen, the images no longer react. So must set pointer-events to none*/
     pointer-events: none;
+    
+    mix-blend-mode: overlay;
 
 }
 
@@ -190,14 +192,19 @@ a:active {
     
     font-size:1em;
     
+/*
     display:flex;
     flex-flow: row wrap;
     justify-content: center;
     align-content: center;
+*/
+    
+    display:inline-block;
     
     padding:20px;
     margin:0px 20px;
     width:100%;
+/*    white-space:nowrap;*/
     height:auto;
     overflow:hidden;
     border:white 1px solid;

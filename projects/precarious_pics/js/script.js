@@ -287,7 +287,7 @@ function setup_critters() {
             opacity: "1"
             });
         });
-    }, 6000);
+    }, 600);
     $(".critter").each(set_transitions); $(".texts").each(set_transitions);
     $(".info").each(set_transitions);
     
