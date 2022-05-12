@@ -139,7 +139,8 @@ a:active {
 
 
 .critter.welcome {
-/*    transition: width 1s, height 0s;*/
+/*manually setting this otherwise it does a weird height expansion on click*/
+    min-width:300px;
 }
 
 .welcome .texts {
@@ -148,6 +149,8 @@ a:active {
     background-blend-mode:difference;
     border:#00FF99 1px solid;
 }
+
+
 
 .texts_container_big {
     position:absolute;
@@ -183,6 +186,9 @@ a:active {
     
 }
 
+.critter {
+}
+
 .texts {
     font-family: 'Bell', cursive;
     font-weight: normal;
@@ -192,19 +198,16 @@ a:active {
     
     font-size:1em;
     
-/*
     display:flex;
     flex-flow: row wrap;
     justify-content: center;
     align-content: center;
-*/
-    
-    display:inline-block;
     
     padding:20px;
     margin:0px 20px;
     width:100%;
-/*    white-space:nowrap;*/
+/*    shittily calculated max-width based on longest line of starting .texts*/
+    max-width:650px;
     height:auto;
     overflow:hidden;
     border:white 1px solid;
@@ -218,6 +221,36 @@ a:active {
     opacity:0;
 }
 
+.blink {
+    animation: blink 1s linear 1;
+    
+}
+
+@keyframes blink {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+/*
+.text_1{
+    
+}
+.text_4{
+    
+}
+
+.text_7{
+    
+}
+.text_10{
+    
+}
+*/
+
 /*invisible hitbox for jquery mouseenter*/
 .hitbox {
     position:absolute;
@@ -229,9 +262,6 @@ a:active {
     padding:10px;
     
 /*    border:white 1px solid;*/
-}
-
-.critter {
 }
 
 /*must be position relative so img_name is positioned based on image_frame, not critter*/

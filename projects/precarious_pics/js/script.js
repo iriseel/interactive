@@ -1,3 +1,17 @@
+//Getting user to start in middle of bg_wrapper rather than top-left corner of window ... not exactly midway through .bg_wrapper but close enough for now
+function Scrolldown() {
+    var width_half = $(".bg_wrapper").width() / 2;
+    var height_half = $(".bg_wrapper").height() / 2;
+    
+     window.scroll(width_half, height_half);
+    
+//    console.log("height_half is" + height_half);
+//    console.log("width_half is" + width_half);
+}
+
+window.onload = Scrolldown;
+
+
 // load the airtable library
 var Airtable = require('airtable');
 Airtable.configure({
@@ -157,10 +171,6 @@ function showRows(setup_critters) {
     //again, callback!!
     setup_critters();
 }
-
-
-
-
 
 
 
@@ -619,9 +629,11 @@ function click_critter(e) {
              if ($(this).hasClass("welcome")) {
                  $(this).css({
                     display: "block",
+                     width: "500px",
                      transition: "1s"
                  });
              };
+            
             
             $(this).css({
                 width: "500px",
@@ -634,8 +646,8 @@ function click_critter(e) {
                 margin: "auto",
                 transition: "width 1s"
                 
-                
             });
+            
             
         }
         
@@ -760,6 +772,15 @@ function click_text() {
     console.log(index + "text CAUGHT IS:" + caughts[index]);
     console.log("text GLOBAL CAUGHT IS:" + global_caught);
     
+    //This is for a fade effect when the text changes so it isn't as abrupt
+    $(this).addClass("blink");
+    
+    var this_one = $(this);
+
+    setTimeout(function () { 
+     this_one.removeClass("blink");
+    }, 1000);
+    
     
     //if welcome critter is clicked
     if ($(this).parents(".critter").hasClass("welcome")) {
@@ -782,61 +803,62 @@ function click_text() {
         global_caught == false)) {
 
             if (clicks == 0) {
-                $(this).children("p").html("1. Beautiful though it may be, a documentary photo can never quite capture the firsthand experience of a thing — alive, in motion, with all its life radiating beyond the edges of the frame. This is no less true for the creatures pictured here. Your swimming companions on this site share a real home: The Republic of Palau.");
+                $(this).children("p").html("Beautiful though it may be, a documentary photo can never quite capture the firsthand experience of a thing — alive, in motion, with all its life radiating beyond the edges of the frame. This is no less true for the creatures pictured here. Your swimming companions on this site share a real home: The Republic of Palau.");
             }
 
             else if (clicks == 2) {
-                $(this).children("p").html("2. Located in the Western Pacific, Palau is an archipelago comprising more than 400 islands. Despite its small size, Palau is known throughout the world for its beautiful marine life and rich traditions of ocean stewardship.");
+                $(this).children("p").html("Located in the Western Pacific, Palau is an archipelago comprising more than 400 islands. Despite its small size, Palau is known throughout the world for its beautiful marine life and rich traditions of ocean stewardship.");
 
             }
 
             else if (clicks == 4) {
-                $(this).children("p").html("3. The photos here document only a small fraction of Palau’s exceptional marine biodiversity. The islands are home to more than 500 species of coral and over 1,000 species of fish, making Palau one of the most diverse areas in the Pacific region.");
+                $(this).children("p").html("The photos here document only a small fraction of Palau’s exceptional marine biodiversity. The islands are home to more than 500 species of coral and over 1,000 species of fish, making Palau one of the most diverse areas in the Pacific region.");
             }
 
             else if (clicks == 6) {
-                $(this).children("p").html("4. For thousands of years, Palauans have depended on the ocean for their food and livelihoods. To protect their ocean resources, Palauans have used ancient traditional practices to limit harvesting of threatened species. One such ancient practice is Bul, a moratorium declared by Palau’s traditional leaders that places an immediate halt to the over-consumption or destruction of a species, place or thing.");
+                $(this).children("p").html("For thousands of years, Palauans have depended on the ocean for their food and livelihoods. To protect their ocean resources, Palauans have used ancient traditional practices to limit harvesting of threatened species. One such ancient practice is Bul, a moratorium declared by Palau’s traditional leaders that places an immediate halt to the over-consumption or destruction of a species, place or thing.");
 
             }
 
             else if (clicks == 8) {
-                $(this).children("p").html("5. In 2015, in response to the global threats of overfishing and climate change, the Republic of Palau enshrined Bul into law and established the Palau National Marine Sanctuary (PNMS). The massive sanctuary encompasses 80% of Palau’s national waters and is closed to all forms of fishing and mining.");
+                $(this).children("p").html("In 2015, in response to the global threats of overfishing and climate change, the Republic of Palau enshrined Bul into law and established the Palau National Marine Sanctuary (PNMS). The massive sanctuary encompasses 80% of Palau’s national waters and is closed to all forms of fishing and mining.");
 
             }
 
             else if (clicks == 10) {
-                $(this).children("p").html("6. In line with Palau’s cultural values and traditions, embodying a well thought-out environmental policy and the commitment of both the people and the government, the Sanctuary began as a people's movement through a petition and quickly gained popular support, sweeping the nation.");
+                $(this).children("p").html("In line with Palau’s cultural values and traditions, embodying a well thought-out environmental policy and the commitment of both the people and the government, the Sanctuary began as a people's movement through a petition and quickly gained popular support, sweeping the nation.");
 
             }
 
             else if (clicks == 12) {
-                $(this).children("p").html("7. Now, in an effort to temporarily bolster the economy in the midst of the COVID-19 pandemic, Palau’s House of Delegates of the 11th Olbiil Era Kelulau introduced House Bill No. 11-30-2S. This bill proposes to reopen an additional 50% (for a total of 70%) of Palau's  Exclusive Economic Zone (EEZ) to foreign fishing and oil exploration.");
+                $(this).children("p").html("Now, in an effort to temporarily bolster the economy in the midst of the COVID-19 pandemic, Palau’s House of Delegates of the 11th Olbiil Era Kelulau introduced House Bill No. 11-30-2S. This bill proposes to reopen an additional 50% (for a total of 70%) of Palau's  Exclusive Economic Zone (EEZ) to foreign fishing and oil exploration.");
 
             }
 
             else if (clicks == 14) {
-                $(this).children("p").html("8. Not only would this reopening of the Sanctuary to commercial interests not generate nearly as much revenue as has been advertised, it would also likely lead to the decimation of ocean wildlife and consequently, an exacerbation of global climate change.");
+                $(this).children("p").html("Not only would this reopening of the Sanctuary to commercial interests not generate nearly as much revenue as has been advertised, it would also likely lead to the decimation of ocean wildlife and consequently, an exacerbation of global climate change.");
 
             }
 
             else if (clicks == 16) {
-                $(this).children("p").html("9. In an open letter of support for the Sanctuary, Palau’s Council of Chiefs stated, “Science tells us that our world has to fully protect at least 30% of our world’s oceans by 2030 for life on our planet earth to survive.  And yet we are nowhere near that target.  Without MPAs [Marine Protected Areas] like PNMS, it is not only Palau who is at risk but our entire world.”");
+                $(this).children("p").html("In an open letter of support for the Sanctuary, Palau’s Council of Chiefs stated, “Science tells us that our world has to fully protect at least 30% of our world’s oceans by 2030 for life on our planet earth to survive.  And yet we are nowhere near that target.  Without MPAs [Marine Protected Areas] like PNMS, it is not only Palau who is at risk but our entire world.”");
 
             }
 
             else if (clicks == 18) {
-                $(this).children("p").html("10. Palau’s rich marine life, including the creatures in these photographs, is a testament to the hard work and foresight of generations of Palauans who made, and continue to make, the choice to protect their oceans. Unless their legacy is continued through bold measures like the Palau National Marine Sanctuary, it is unlikely that children anywhere will experience the ocean as we know it today.");
+                $(this).children("p").html("Palau’s rich marine life, including the creatures in these photographs, is a testament to the hard work and foresight of generations of Palauans who made, and continue to make, the choice to protect their oceans. Unless their legacy is continued through bold measures like the Palau National Marine Sanctuary, it is unlikely that children anywhere will experience the ocean as we know it today.");
 
             }
 
             else if (clicks == 20) {
-                $(this).children("p").html("11. A photograph can only preserve so much. Do not let these photos become mere documentation of a vibrancy that once was. To learn more about the Palau National Marine Sanctuary and join the fight to maintain its size and integrity, sign the #SaveMySanctuary <a href='https://www.change.org/p/savemysanctuary-help-stop-the-destruction-of-one-of-the-world-s-largest-mpas' target='_blank'> petition</a>.");
+                $(this).children("p").html("A photograph can only preserve so much. Do not let these photos become mere documentation of a vibrancy that once was. To learn more about the Palau National Marine Sanctuary and join the fight to maintain its size and integrity, sign the #SaveMySanctuary <a href='https://www.change.org/p/savemysanctuary-help-stop-the-destruction-of-one-of-the-world-s-largest-mpas' target='_blank'> petition</a>.");
 
             }
 
             else if (clicks == 22) {
                 //do NOT enter in .html(), that messes up the code. Also use ' instead of " inside the text
-                $(this).children("p").html("12. Sources: <a href='https://www.change.org/p/savemysanctuary-help-stop-the-destruction-of-one-of-the-world-s-largest-mpas'>#SaveMySanctuary petition</a><br><a href='https://islandtimes.org/chiefs-weigh-in-favor-of-keeping-the-pnms-as-is/?fbclid=IwAR3Moo5ZMTeIuos1oKfOa4EwyjqsygDEeD5GAqdBQV2YGMHUR_lgk8aVqIE'>Chiefs weigh in favor of keeping the PNMS as is</a><br><a href='https://islandtimes.org/logical-fallacies-of-house-bill-11-30-2s-amending-pnms/?fbclid=IwAR3cv0zuXD6RehdIdk2sKkU3a1WdWlNrbyAdWwQK_AR9frYkcEFNNsbS_b8'>Logical fallacies of House Bill 11-30-2S (amending PNMS)</a><br><a href=''></a><br><a href='https://islandtimes.org/pnms-casualty-of-covid-19-pandemic/?fbclid=IwAR0BJe13px4ISAWcmo4-kTNo5uEW2IZRv2tVTzcF7eGXY8eSpNVftWuh4D8'>PNMS, casualty of COVId-19 pandemic</a><br><a href='https://islandtimes.org/palau-to-bring-100-managed-ocean-concept-as-solution-to-un-ocean-conference/?fbclid=IwAR34C11-T7zAzxmroGBcIf9y-XlLfwpbjM_cGkjvA-B_A3loIjuVnjHfxoM'>Palau to bring 100% managed ocean concept as solution to UN Ocean Conference</a>");
+                $(this).children("p").html(
+                "<p style='margin-bottom:.5em'>Sources</p><p style='margin-bottom:.5em'><a href='https://www.change.org/p/savemysanctuary-help-stop-the-destruction-of-one-of-the-world-s-largest-mpas'>#SaveMySanctuary petition</a></p><p style='margin-bottom:.5em'><a href='https://islandtimes.org/chiefs-weigh-in-favor-of-keeping-the-pnms-as-is/?fbclid=IwAR3Moo5ZMTeIuos1oKfOa4EwyjqsygDEeD5GAqdBQV2YGMHUR_lgk8aVqIE'>Chiefs weigh in favor of keeping the PNMS as is</a></p><p style='margin-bottom:.5em'><a href='https://islandtimes.org/logical-fallacies-of-house-bill-11-30-2s-amending-pnms/?fbclid=IwAR3cv0zuXD6RehdIdk2sKkU3a1WdWlNrbyAdWwQK_AR9frYkcEFNNsbS_b8'>Logical fallacies of House Bill 11-30-2S (amending PNMS)</a></p><p style='margin-bottom:.5em'><a href='https://islandtimes.org/pnms-casualty-of-covid-19-pandemic/?fbclid=IwAR0BJe13px4ISAWcmo4-kTNo5uEW2IZRv2tVTzcF7eGXY8eSpNVftWuh4D8'>PNMS, casualty of COVId-19 pandemic</a></p><p style='margin-bottom:.5em'><a href='https://islandtimes.org/palau-to-bring-100-managed-ocean-concept-as-solution-to-un-ocean-conference/?fbclid=IwAR34C11-T7zAzxmroGBcIf9y-XlLfwpbjM_cGkjvA-B_A3loIjuVnjHfxoM'>Palau to bring 100% managed ocean concept as solution to UN Ocean Conference</a>");
                 
                 //reset clicks so text can loop again
                 clicks = -2;
